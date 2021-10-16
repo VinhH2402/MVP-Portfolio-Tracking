@@ -1,0 +1,97 @@
+
+
+h1 {
+  text-align: center;
+}
+
+.add_exchange {
+  text-align: right;
+}
+
+.add_exchange button{
+  height: 3em;
+  width: 12em;
+  padding:0.46em 1.6em;
+  display:inline-block;
+  border:0.1em solid #000000;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:500;
+  color:#000000;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  background-color:#4CAF50;
+  text-align:center;
+  transition: all 0.15s;
+}
+.add_exchange button:hover{
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  color:#FFFFFF;
+  border-color:#FFFFFF;
+}
+  @media all and (max-width:30em){
+    .add_exchange button{
+    display:block;
+    margin:0.4em auto;
+  }
+  }
+
+#total_assets {
+  height: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+#exchange_table{
+  border: 1px solid black;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+#exchange_table td, #exchange_table th{
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+#exchange_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #4CAF50;
+  color: white;
+}
+
+#exchange_table tr:nth-child(even){background-color: #f2f2f2;}
+
+.align_left {
+  text-align: left;
+}
+
+#exchange_name{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.exchange_total {
+  text-align: right;
+}
+
+.exchange_total, 
+.exchange_name {
+  padding-top: 0.7em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.total_assets,
+.assets_number{
+  font-size: x-large;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
