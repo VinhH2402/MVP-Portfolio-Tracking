@@ -8,7 +8,7 @@ function TableHeader (props) {
             <tr id="row0">
               <th className='number'>#</th>
               <th>Coin</th>
-              <th>Quality</th>
+              <th>Quantity</th>
               <th>Price</th>
               <th>Total Value</th>
             </tr>

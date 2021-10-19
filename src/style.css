@@ -95,3 +95,7 @@ h1 {
   font-size: x-large;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+.assets_number{
+  text-align: center;
+}

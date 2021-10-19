@@ -3,7 +3,6 @@ import TableHeader from './TableHeader';
 
 function Exchange(props) {
   const { exchanges, total } = props;
-  console.log('::::::::::::::::::::::::::::::;', exchanges)
   return exchanges.map(exchange => {
     const exchangeName = exchange.name.toUpperCase();
     return (

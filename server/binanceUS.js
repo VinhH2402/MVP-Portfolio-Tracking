@@ -3,14 +3,14 @@ const CryptoJS = require("crypto-js");
 const db = require('../db')
 
 
-const burl = 'https://testnet.binance.vision';
-
+const burl = 'https://api.binance.us';
 let secretKey;
 let apiKey;
 
-db.Keys.findOne({ exchange: 'BinanceTest' })
+
+db.Keys.findOne({ exchange: 'BinanceUS' })
   .then(result => {
-    if (result) {
+    if(result) {
       secretKey = result.SECRET_KEY;
       apikey = result.API_KEY;
     }
@@ -44,11 +44,10 @@ const getPrice = (symbol) => {
 }
 
 
-
 const account = (callback) => {
   const resData = [];
   const promises = [];
-  db.Keys.findOne({ exchange: 'BinanceTest' })
+  db.Keys.findOne({ exchange: 'BinanceUS' })
     .then(result => {
       secretKey = result.SECRET_KEY;
       apiKey = result.API_KEY;
@@ -56,9 +55,9 @@ const account = (callback) => {
         .then(res => {
           const balances = res.data.balances;
           balances.forEach(each => {
-            if (each.free > 0) {
+            if (each.free > 0.01) {
               if (each.asset === 'USD' || each.asset === 'USDT') {
-                each.price = 1.00;
+                each.price = 1;
                 resData.push(each);
               } else {
                 const symbol = each.asset + 'USDT';
@@ -87,5 +86,5 @@ const account = (callback) => {
 
 
 
-module.exports = { account, getTime }
+module.exports = { account, getTime, getPrice }
 

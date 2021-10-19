@@ -66,10 +66,9 @@ class App extends React.Component {
          })
    }
 
-
    componentDidMount() {
       this.sendRequest();
-      setInterval(this.sendRequest, 5000)
+      //setInterval(this.sendRequest, 5000)
    }
 
    handleClick() {
@@ -147,8 +146,8 @@ class App extends React.Component {
                         <td>
                            <select id='exchange' value={this.state.exchange} onChange={this.handleInput}>
                               <option >Select</option>
-                              <option value="BinanceTest">BinanceTest</option>
                               <option value="Binance">Binance</option>
+                              <option value="BinanceUS">BinanceUS</option>
                               <option value="Coinbase">Coinbase</option>
                               <option value="Kucoin">Kucoin</option>
                               <option value="Gate.io">Gate.io</option>

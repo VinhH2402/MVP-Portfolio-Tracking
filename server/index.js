@@ -1,6 +1,6 @@
 const express = require('express');
-const binanceTest = require('./binanceTest.js');
-const binance = require('./binance.js')
+const binance = require('./binance.js');
+const binanceUS = require('./binanceUS.js')
 const app = express();
 const port = 3000;
 const path = require('path')
@@ -10,8 +10,6 @@ const db = require('../db')
 app.use(express.static(path.join(__dirname, '/../dist')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-
-
 
 app.get('/exchanges', (req, res) => {
   db.Keys.find()
@@ -38,27 +36,18 @@ app.post('/delete', (req, res) => {
     })
 })
 
-app.post('/remove', (req, res) => {
-  db.Keys.remove({})
-    .then(result => {
-      console.log('remove all', result)
-      res.end();
-    })
-})
-
-app.get('/BinanceTest', (req, res) => {
-  binanceTest.account((data) => {
-    res.json(data)
-  })
-})
-
 app.get('/Binance', (req, res) => {
   binance.account((data) => {
     res.json(data)
   })
-
 })
 
+app.get('/BinanceUS', (req, res) => {
+  binanceUS.account((data) => {
+    res.json(data)
+  })
+
+})
 
 app.listen(port, () => {
   console.log(`Portfolio Tracking app listening at http://localhost:${port}`)
