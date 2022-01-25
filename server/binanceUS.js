@@ -1,34 +1,18 @@
 const axios = require('axios');
 const CryptoJS = require("crypto-js");
 const db = require('../db')
+const { Spot } = require('@binance/connector')
 
 
 const burl = 'https://api.binance.us';
-let secretKey;
-let apiKey;
 
-
-db.Keys.findOne({ exchange: 'BinanceUS' })
-  .then(result => {
-    if(result) {
-      secretKey = result.SECRET_KEY;
-      apikey = result.API_KEY;
-    }
-  })
-
-
-
-const getBlances = () => {
-  const endpoint = '/api/v3/account';
-  const queryString = 'timestamp=' + Date.now();
-  const signature = CryptoJS.HmacSHA256(queryString, secretKey).toString(CryptoJS.enc.Hex)
-  const url = burl + endpoint + '?' + queryString + '&signature=' + signature;
-  return axios.get(url, {
-    headers: {
-      'X-MBX-APIKEY': apiKey
-    }
-  })
-};
+getBalances = async () => {
+  const keys = await db.Keys.findOne({ exchange: 'BinanceUS' })
+  const secretKey = keys.SECRET_KEY;
+  const apiKey = keys.API_KEY;
+  const client = new Spot(apiKey, secretKey, { baseURL: burl })
+  return client.account().then(response => response.data.balances)
+}
 
 const getTime = () => {
   const endpoint = '/api/v3/exchangeInfo';
@@ -36,54 +20,37 @@ const getTime = () => {
   return axios.get(url)
 }
 
-
-const getPrice = (symbol) => {
+const getPrice = async (symbol) => {
   const endpoint = '/api/v3/ticker/price';
   const url = burl + endpoint + '?symbol=' + symbol;
-  return axios.get(url)
+  const price = await axios.get(url)
+  return price.data.price
 }
 
-
-const account = (callback) => {
+const account = async (callback) => {
   const resData = [];
   const promises = [];
-  db.Keys.findOne({ exchange: 'BinanceUS' })
-    .then(result => {
-      secretKey = result.SECRET_KEY;
-      apiKey = result.API_KEY;
-      getBlances()
-        .then(res => {
-          const balances = res.data.balances;
-          balances.forEach(each => {
-            if (each.free > 0.01) {
-              if (each.asset === 'USD' || each.asset === 'USDT') {
-                each.price = 1;
-                resData.push(each);
-              } else {
-                const symbol = each.asset + 'USDT';
-                promises.push(getPrice(symbol)
-                  .then(res => {
-                    const price = res.data.price;
-                    each.price = price;
-                    resData.push(each)
-                  })
-                  .catch(err => err)
-                )
-              }
-            }
-          })
-          Promise.all(promises)
-            .then(() => {
-              callback(resData)
-            })
-            .catch(err => callback(err))
-        })
-    })
+  const balances = await getBalances();
 
-    .catch(err => callback(err))
+  const getResData = async () => {
+    for (let i = 0; i < balances.length; i++) {
+      if (balances[i].free > 0.01) {
+        if (balances[i].asset === 'USD' || balances[i].asset === 'USDT') {
+          balances[i].price = 1;
+          resData.push(balances[i]);
+        } else {
+          const symbol = balances[i].asset + 'USDT';
+          const price = await getPrice(symbol);
+          balances[i].price = price;
+          resData.push(balances[i]);
+        }
+      }
+    }
+  }
+
+  getResData()
+    .then(() => callback(resData));
 }
-
-
 
 
 module.exports = { account, getTime, getPrice }
