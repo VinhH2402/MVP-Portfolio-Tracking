@@ -68,7 +68,6 @@ class App extends React.Component {
 
    componentDidMount() {
       this.sendRequest();
-      //setInterval(this.sendRequest, 5000)
    }
 
    handleClick() {
