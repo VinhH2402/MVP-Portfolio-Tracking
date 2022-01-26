@@ -6,14 +6,7 @@ class List extends React.Component {
     super(props)
     this.cache = {}
     this.state = {
-      account: [{
-        asset: 'coin',
-        free: 0,
-        locked: 0,
-        quantity: 0,
-        price: 0,
-        totalValue: 0
-      }]
+      account: []
     }
   }
 
@@ -41,7 +34,7 @@ class List extends React.Component {
       account.forEach(item => {
         accountBalance += item.totalValue
       })
-      this.props.getTotalBalance(accountBalance)
+      this.props.getTotalBalance(accountBalance, this.props.exchange)
 
       this.setState({
         account: account
@@ -74,7 +67,7 @@ class List extends React.Component {
         };
         this.cache[asset] = price;
       }
-
+  
       return (
         <tr key={index}>
           <td className='align_left' className='number'>{index + 1}</td>

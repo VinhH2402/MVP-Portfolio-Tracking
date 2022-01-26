@@ -5,31 +5,28 @@ class Exchange extends React.Component {
   constructor(props) {
     super(props)
     this.getTotalBalance = this.getTotalBalance.bind(this);
-    this.state = {
-      totalValue: 0
-    }
+    this.state = {}
   }
 
-  getTotalBalance (total) {
+  getTotalBalance (total, exchange) {
     const currency = new Intl.NumberFormat('en-US',
         { style: 'currency', currency: 'USD' }).format(total);
     this.setState({
-      totalBalance: currency
+      [exchange.name] : currency
     })
   }
 
   render() {
     const { exchanges } = this.props;
-    const { totalBalance } = this.state
     return exchanges.map(exchange => {
-      const exchangeName = exchange.name.toUpperCase();
+      const exchangeName = exchange.name;
       return (
         <div key={exchange.name}>
           <table id='exchange_name'>
             <tbody>
               <tr>
-                <td className='exchange_name'>{exchangeName}</td>
-                <td className='exchange_total'>{totalBalance}</td>
+                <td className='exchange_name'>{exchangeName.toUpperCase()}</td>
+                <td className='exchange_total'>{this.state[exchangeName]}</td>
               </tr>
             </tbody>
           </table>
