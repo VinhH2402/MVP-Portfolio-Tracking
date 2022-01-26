@@ -8,7 +8,12 @@ const account = async (callback) => {
   const secretKey = keys.SECRET_KEY;
   const apiKey = keys.API_KEY;
   const client = new Spot(apiKey, secretKey, { baseURL: burl })
-  client.account().then(response => callback(response.data.balances))
+  client.account()
+    .then(response => {
+      const data = response.data.balances;
+      const responseData = data.filter(item => item.free > 0.01) 
+      callback(responseData)
+    })
 }
 
 module.exports = { account }

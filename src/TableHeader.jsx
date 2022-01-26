@@ -7,12 +7,12 @@ function TableHeader (props) {
           <tbody>
             <tr id="row0">
               <th className='number'>#</th>
-              <th>Coin</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Total Value</th>
+              <th className="coin-name">Coin</th>
+              <th className="quantity">Quantity</th>
+              <th className="price">Price</th>
+              <th className="total-value">Total Value</th>
             </tr>
-            <List exchange={props.exchange}/>
+            <List exchange={props.exchange} getTotalBalance={props.getTotalBalance}/>
           </tbody>
         </table>
   )

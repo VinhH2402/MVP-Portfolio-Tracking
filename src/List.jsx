@@ -13,13 +13,12 @@ class List extends React.Component {
         quantity: 0,
         price: 0,
         totalValue: 0
-      }],
-      accountBalance: 0
+      }]
     }
   }
 
   componentDidMount() {
-    const account = this.props.exchange.data;
+    let account = this.props.exchange.data;
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/!ticker@arr')
     ws.onmessage = async (event) => {
       const priceData = JSON.parse(event.data);
@@ -30,19 +29,22 @@ class List extends React.Component {
             coin.price = parseFloat(Number(pair.c));
             coin.quantity = parseFloat(Number(coin.free) + Number(coin.locked))
             coin.totalValue = coin.quantity * coin.price;
-            accountBalance += coin.totalValue;
           }
-          if (coin.asset === 'USDT' || coin.asset === 'USD') {
+          if (coin.asset === 'USDT' || coin.asset === 'USD' || coin.asset === 'BUSD') {
             coin.price = 1;
             coin.quantity = parseFloat(Number(coin.free) + Number(coin.locked))
             coin.totalValue = coin.quantity * coin.price;
-            accountBalance += coin.totalValue;
           }
         }
       }
+  
+      account.forEach(item => {
+        accountBalance += item.totalValue
+      })
+      this.props.getTotalBalance(accountBalance)
+
       this.setState({
-        account: account,
-        accountBalance: accountBalance
+        account: account
       })
 
     }
@@ -56,7 +58,7 @@ class List extends React.Component {
     })
     return sortedAccount.map((coin, index) => {
       const { asset, price, quantity, totalValue } = coin
-      const $total = new Intl.NumberFormat('en-US',
+      const total = new Intl.NumberFormat('en-US',
         { style: 'currency', currency: 'USD' }).format(totalValue);
       if (!this.cache[asset]) {
         this.cache[asset] = price;
@@ -76,10 +78,10 @@ class List extends React.Component {
       return (
         <tr key={index}>
           <td className='align_left' className='number'>{index + 1}</td>
-          <td className='align_left'>{asset +'/USDT'}</td>
+          <td className='align_left'>{asset}</td>
           <td>{quantity}</td>
           <td style={{ color: `${fontColor}` }}>{price}</td>
-          <td>{$total}</td>
+          <td>{total}</td>
         </tr>
       )
     })
