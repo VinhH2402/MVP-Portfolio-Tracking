@@ -4,11 +4,30 @@ h1 {
   text-align: center;
 }
 
-.add_exchange {
+.add_exchange,
+.remove-exchange {
   text-align: right;
 }
 
-.add_exchange button{
+.remove-exchange button {
+  height: 2em;
+  width: 6em;
+  display:inline-block;
+  border:0.1em solid #000000;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.5em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:500;
+  color:#000000;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  background-color:#d02a2a;
+  text-align:center;
+  transition: all 0.15s;
+}
+
+.add_exchange button {
   height: 3em;
   width: 12em;
   padding:0.46em 1.6em;
@@ -26,7 +45,8 @@ h1 {
   text-align:center;
   transition: all 0.15s;
 }
-.add_exchange button:hover{
+.add_exchange button:hover,
+ .remove-exchange button:hover{
   text-shadow: 0 0 2em rgba(255,255,255,1);
   color:#FFFFFF;
   border-color:#FFFFFF;
@@ -76,7 +96,7 @@ h1 {
 #exchange_name{
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 80%;
 }
 
 .exchange_total {
@@ -118,4 +138,8 @@ th.price {
 
 th.total {
   width: 30%;
+}
+
+.row-remove {
+  text-align: right;
 }

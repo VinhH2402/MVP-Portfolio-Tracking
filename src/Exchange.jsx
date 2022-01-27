@@ -1,5 +1,6 @@
 import React from 'react';
 import TableHeader from './TableHeader';
+import axios from 'axios';
 
 class Exchange extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class Exchange extends React.Component {
     this.state = {}
   }
 
-  getTotalBalance (total, exchange) {
+  getTotalBalance(total, exchange) {
     this.state[exchange.name] = total;
     let totalAssets = 0;
     for (const key in this.state) {
@@ -16,7 +17,7 @@ class Exchange extends React.Component {
     }
     this.props.getTotalAssets(totalAssets)
     this.setState({
-      [exchange.name] : total
+      [exchange.name]: total
     })
   }
 
@@ -33,10 +34,15 @@ class Exchange extends React.Component {
               <tr>
                 <td className='exchange_name'>{exchangeName.toUpperCase()}</td>
                 <td className='exchange_total'>{currency}</td>
+                <td className='remove-exchange'>
+                  <div>
+                    <button id={exchangeName} onClick={this.props.removeExchange}>REMOVE</button>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
-          <TableHeader exchange={exchange} getTotalBalance={this.getTotalBalance}/>
+          <TableHeader exchange={exchange} getTotalBalance={this.getTotalBalance} />
         </div>
       );
     })

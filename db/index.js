@@ -25,6 +25,10 @@ const add = (data, callback) => {
   })
 }
 
+const remove = (exchangeName, callback) => {
+  
+}
+
 
 
 module.exports.Keys = Keys;

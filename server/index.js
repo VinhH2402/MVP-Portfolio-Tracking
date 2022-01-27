@@ -29,12 +29,25 @@ app.post('/addkey', (req, res) => {
 })
 
 app.post('/delete', (req, res) => {
+  console.log(req.body)
   db.Keys.deleteMany(req.body)
     .then(result => {
       console.log(result)
       res.end()
     })
 })
+
+app.put('/remove', (req, res) => {
+  db.Keys.deleteOne(req.body)
+    .then(result => {
+      console.log(result)
+      console.log(req.body)
+      console.log(req.body.exchangeName + ' DELETED')
+      res.end()
+    })
+
+})
+
 
 app.get('/Binance', (req, res) => {
   binance.account((data) => {

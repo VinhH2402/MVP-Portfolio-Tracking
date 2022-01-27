@@ -12,6 +12,7 @@ class App extends React.Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.getData = this.getData.bind(this);
       this.getTotalAssets = this.getTotalAssets.bind(this);
+      this.removeExchange = this.removeExchange.bind(this);
       this.state = {
          addExchange: false,
          buttonLabel: 'ADD EXCHANGE',
@@ -31,30 +32,41 @@ class App extends React.Component {
       })
    }
 
-   getData(allexchanges) {
+   getData() {
       const exchanges = [];
       const promises = [];
-      allexchanges.forEach((exchange, index) => {
-         promises.push(axios.get(`/${exchange}`)
-            .then(result => {
-               exchanges.push({ id: index, name: exchange, data: result.data })
+      axios.get('/exchanges')
+         .then(res => {
+            const allexchanges = res.data
+            allexchanges.forEach((exchange, index) => {
+               promises.push(axios.get(`/${exchange}`)
+                  .then(result => {
+                     exchanges.push({ id: index, name: exchange, data: result.data })
+                  })
+               )
             })
-         )
-      })
-      Promise.all(promises)
+            Promise.all(promises)
+               .then(() => {
+                  const sortExchanges = exchanges.sort((a, b) => a.id - b.id)
+                  this.setState({
+                     exchanges: sortExchanges
+                  })
+               })
+         })
+   }
+
+   removeExchange(e) {
+      const exchangeName = e.target.id;
+      console.log(exchangeName)
+      axios.put('/remove', { exchangeName: exchangeName })
          .then(() => {
-            const sortExchanges = exchanges.sort((a, b) => a.id - b.id)
-            this.setState({
-               exchanges: sortExchanges
-            })
+            this.getData();
+
          })
    }
 
    componentDidMount() {
-      axios.get('/exchanges')
-         .then(res => {
-            this.getData(res.data)
-         })
+      this.getData();
    }
 
    handleClick() {
@@ -117,7 +129,11 @@ class App extends React.Component {
                      </tbody>
                   </table>
                </div>
-               <Exchange exchanges={exchanges} getTotalAssets={this.getTotalAssets} />
+               <Exchange
+                  exchanges={exchanges}
+                  getTotalAssets={this.getTotalAssets}
+                  removeExchange={this.removeExchange}
+               />
             </div>
          )
          :
