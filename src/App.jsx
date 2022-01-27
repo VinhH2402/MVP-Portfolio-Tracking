@@ -7,12 +7,11 @@ import './style.css';
 class App extends React.Component {
    constructor() {
       super()
-      this.handleClick = this.handleClick.bind(this)
-      this.handleInput = this.handleInput.bind(this)
-      this.handleSubmit = this.handleSubmit.bind(this)
-      this.sendRequest = this.sendRequest.bind(this);
+      this.handleClick = this.handleClick.bind(this);
+      this.handleInput = this.handleInput.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
       this.getData = this.getData.bind(this);
-      this.getAccBalance = this.getAccBalance.bind(this);
+      this.getTotalAssets = this.getTotalAssets.bind(this);
       this.state = {
          addExchange: false,
          buttonLabel: 'ADD EXCHANGE',
@@ -20,54 +19,42 @@ class App extends React.Component {
          a_key: '',
          s_key: '',
          exchanges: [],
-         total: {}
+         totalAssets: 0
       }
    }
 
-   getAccBalance(acc) {
-      const reducer = (acc, item) => {
-         return (acc + ((Number(item.free) + Number(item.locked)) * Number(item.price)))
-      };
-      const accBalance = acc.reduce(reducer, 0)
-      return accBalance;
+   getTotalAssets(total) {
+      const totalAssets = new Intl.NumberFormat('en-US',
+         { style: 'currency', currency: 'USD' }).format(total);
+      this.setState({
+         totalAssets: totalAssets
+      })
    }
 
    getData(allexchanges) {
-      let totalAssets = 0
-      let allTotal = {};
       const exchanges = [];
       const promises = [];
       allexchanges.forEach((exchange, index) => {
          promises.push(axios.get(`/${exchange}`)
             .then(result => {
                exchanges.push({ id: index, name: exchange, data: result.data })
-               const accBalance = this.getAccBalance(result.data)
-               totalAssets += accBalance;
-               allTotal[exchange] = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(accBalance);
             })
          )
       })
       Promise.all(promises)
          .then(() => {
             const sortExchanges = exchanges.sort((a, b) => a.id - b.id)
-            allTotal.totalAssets = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalAssets);
             this.setState({
-               total: allTotal,
                exchanges: sortExchanges
             })
-         })
-
-   }
-
-   sendRequest() {
-      axios.get('/exchanges')
-         .then(res => {
-            this.getData(res.data)
          })
    }
 
    componentDidMount() {
-      this.sendRequest();
+      axios.get('/exchanges')
+         .then(res => {
+            this.getData(res.data)
+         })
    }
 
    handleClick() {
@@ -109,7 +96,7 @@ class App extends React.Component {
    }
 
    render() {
-      const { addExchange, buttonLabel, exchanges, total } = this.state;
+      const { addExchange, buttonLabel, exchanges, totalAssets } = this.state;
       return addExchange === false ?
          (
             <div>
@@ -120,7 +107,7 @@ class App extends React.Component {
                      <tbody>
                         <tr>
                            <td className='total_assets'>TOTAL ASSETS</td>
-                           <td className='assets_number'>{total.totalAssets || 0}</td>
+                           <td className='assets_number'>{totalAssets}</td>
                            <td>
                               <div className='add_exchange'>
                                  <button onClick={this.handleClick}>{buttonLabel}</button>
@@ -130,7 +117,7 @@ class App extends React.Component {
                      </tbody>
                   </table>
                </div>
-               <Exchange exchanges={exchanges} total={total} />
+               <Exchange exchanges={exchanges} getTotalAssets={this.getTotalAssets} />
             </div>
          )
          :
