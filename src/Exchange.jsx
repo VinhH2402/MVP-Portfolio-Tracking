@@ -1,6 +1,5 @@
 import React from 'react';
 import TableHeader from './TableHeader';
-import axios from 'axios';
 
 class Exchange extends React.Component {
   constructor(props) {

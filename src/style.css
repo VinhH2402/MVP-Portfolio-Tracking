@@ -27,7 +27,8 @@ h1 {
   transition: all 0.15s;
 }
 
-.add_exchange button {
+.add_exchange button,
+.add-account button {
   height: 3em;
   width: 12em;
   padding:0.46em 1.6em;
@@ -46,7 +47,8 @@ h1 {
   transition: all 0.15s;
 }
 .add_exchange button:hover,
- .remove-exchange button:hover{
+ .remove-exchange button:hover,
+ .add-account button:hover{
   text-shadow: 0 0 2em rgba(255,255,255,1);
   color:#FFFFFF;
   border-color:#FFFFFF;
@@ -142,4 +144,30 @@ th.total {
 
 .row-remove {
   text-align: right;
+}
+
+.input-keys input {
+  width: 20em;
+  height: 1.5em;
+  margin: 10px 0
+}
+
+.select-exchange-option select{
+  width: 20.5em;
+  height: 2em;
+  margin: 8px 0
+}
+
+.input-keys div{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.exchange-logo img{
+  width: 250px;
+  height: 100px;
+  margin: 0;
+  border: 1px solid black;
 }

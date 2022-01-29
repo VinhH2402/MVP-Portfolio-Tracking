@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import Exchange from './Exchange';
 import './style.css';
+import AddExchange from './AddExchange';
 
 
 class App extends React.Component {
@@ -14,7 +15,7 @@ class App extends React.Component {
       this.getTotalAssets = this.getTotalAssets.bind(this);
       this.removeExchange = this.removeExchange.bind(this);
       this.state = {
-         addExchange: false,
+         addExchange: true,
          buttonLabel: 'ADD EXCHANGE',
          exchange: '',
          a_key: '',
@@ -61,7 +62,6 @@ class App extends React.Component {
       axios.put('/remove', { exchangeName: exchangeName })
          .then(() => {
             this.getData();
-
          })
    }
 
@@ -94,7 +94,6 @@ class App extends React.Component {
       }
       axios.post('/addkey', data)
          .then(() => {
-            this.sendRequest();
             this.setState({
                addExchange: false,
                buttonLabel: 'ADD EXCHANGE',
@@ -104,7 +103,6 @@ class App extends React.Component {
             })
          })
          .catch(err => err)
-
    }
 
    render() {
@@ -137,46 +135,7 @@ class App extends React.Component {
             </div>
          )
          :
-         (
-            <div>
-               <h1> ADD EXCHANGE </h1>
-               <button onClick={this.handleClick}>{buttonLabel}</button><br></br>
-               <table>
-                  <tbody>
-                     <tr>
-                        <td>Exchange: </td>
-                        <td>
-                           <select id='exchange' value={this.state.exchange} onChange={this.handleInput}>
-                              <option >Select</option>
-                              <option value="Binance">Binance</option>
-                              <option value="BinanceUS">BinanceUS</option>
-                              <option value="Coinbase">Coinbase</option>
-                              <option value="Kucoin">Kucoin</option>
-                              <option value="Gate.io">Gate.io</option>
-                           </select>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td> API_KEY:</td>
-                        <td>
-                           <input type="text" id='a_key'
-                              value={this.state.a_key}
-                              onChange={this.handleInput} />
-                        </td>
-                     </tr>
-                     <tr>
-                        <td> SERECT_KEY:</td>
-                        <td>
-                           <input type="text" id='s_key'
-                              value={this.state.s_key}
-                              onChange={this.handleInput} />
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
-               <button onClick={this.handleSubmit}>Add</button>
-            </div>
-         )
+         (<AddExchange handleClick={this.handleClick}/>)
    }
 }
 
