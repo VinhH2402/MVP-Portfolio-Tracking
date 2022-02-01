@@ -13,7 +13,7 @@ const ExchangeLogo = (props) => {
 
   return (
     <div className="exchange-logo">
-      <img src={url}></img>
+      <img alt={exchange} src={url}></img>
     </div>
   )
 }

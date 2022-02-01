@@ -166,8 +166,13 @@ th.total {
 }
 
 .exchange-logo img{
-  width: 250px;
+  width: 220px;
   height: 100px;
   margin: 0;
   border: 1px solid black;
+}
+
+.error-text {
+  font-size: 20px;
+  color: red
 }

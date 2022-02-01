@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import Exchange from './Exchange';
 import './style.css';
-import AddExchange from './AddExchange';
+import AddAccount from './AddAccount';
 
 
 class App extends React.Component {
@@ -135,7 +135,7 @@ class App extends React.Component {
             </div>
          )
          :
-         (<AddExchange handleClick={this.handleClick}/>)
+         (<AddAccount handleClick={this.handleClick}/>)
    }
 }
 

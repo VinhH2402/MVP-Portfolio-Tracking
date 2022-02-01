@@ -21,10 +21,16 @@ app.get('/exchanges', (req, res) => {
     })
 })
 
-app.post('/addkey', (req, res) => {
+app.post('/addAccount', (req, res) => {
   const key = req.body
-  db.add(key, (result) => {
-    res.end()
+  db.addAccount(key, (result) => {
+    if(result === 'this account was added') {
+      console.log('result', result)
+      res.json(result)
+    } else {
+      console.log(result)
+      res.end()
+    }
   })
 })
 
@@ -45,7 +51,6 @@ app.put('/remove', (req, res) => {
       console.log(req.body.exchangeName + ' DELETED')
       res.end()
     })
-
 })
 
 

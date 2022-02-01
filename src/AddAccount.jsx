@@ -1,16 +1,18 @@
 import React from "react";
 import ExchangeLogo from "./ExchangeLogo";
+import axios from "axios";
 
-class AddExchange extends React.Component {
+class AddAccount extends React.Component {
   constructor(props) {
     super(props)
     this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleAddAccount.bind(this);
+    this.handleAddAccount = this.handleAddAccount.bind(this);
     this.state = {
       exchange: 'Binance',
       apiKey: '',
       secretKey: '',
-      passpharse: ''
+      passphrase: '',
+      errorText: ''
     }
   }
 
@@ -22,21 +24,27 @@ class AddExchange extends React.Component {
   }
 
   handleAddAccount(e) {
-    const { exchange, s_key, a_key } = this.state
+    const { exchange, apiKey, secretKey, passphrase } = this.state
     const data = {
       exchange: exchange,
-      API_KEY: a_key,
-      SECRET_KEY: s_key
+      API_KEY: apiKey,
+      SECRET_KEY: secretKey,
+      passphrase: passphrase
     }
-    axios.post('/addkey', data)
-      .then(() => {
-        this.setState({
-          addExchange: false,
-          buttonLabel: 'ADD EXCHANGE',
-          exchange: '',
-          a_key: '',
-          s_key: ''
-        })
+    axios.post('/addAccount', data)
+      .then((result) => {
+        if (result.data === 'this account was added') {
+          this.setState({
+            errorText: result.data
+          })
+        }
+        // this.setState({
+        //   addExchange: false,
+        //   buttonLabel: 'ADD EXCHANGE',
+        //   exchange: '',
+        //   a_key: '',
+        //   s_key: ''
+        // })
       })
       .catch(err => err)
   }
@@ -48,7 +56,7 @@ class AddExchange extends React.Component {
         <h1> ADD ACCOUNT </h1>
         <button onClick={this.props.handleClick}>MAIN PAGE</button><br></br>
         <div className="input-keys">
-          <ExchangeLogo exchange={this.state.exchange}/>
+          <ExchangeLogo exchange={this.state.exchange} />
           <div className="select-exchange-option">
             <select id='exchange' value={this.state.exchange} onChange={this.handleInput}>
               <option value="Binance">Binance</option>
@@ -60,17 +68,24 @@ class AddExchange extends React.Component {
           </div>
 
           <div>
-            <input type="text" id='a_key'
+            <input type="text" id='apiKey'
               placeholder='API_KEY'
-              value={this.state.a_key}
+              value={this.state.apiKey}
               onChange={this.handleInput} />
           </div>
           <div>
-            <input type="text" id='s_key'
+            <input type="text" id='secretKey'
               placeholder='SECRET_KEY'
-              value={this.state.s_key}
+              value={this.state.secretKey}
               onChange={this.handleInput} />
           </div>
+          <div>
+            <input type="text" id='passphrase'
+              placeholder='passphrase'
+              value={this.state.passphrase}
+              onChange={this.handleInput} />
+          </div>
+          {this.state.errorText ? <div className="error-text">{this.state.errorText}</div> : null}
           <div className="add-account">
             <button onClick={this.handleAddAccount}>Add Account</button>
           </div>
@@ -81,4 +96,4 @@ class AddExchange extends React.Component {
 }
 
 
-export default AddExchange;
+export default AddAccount;
