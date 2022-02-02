@@ -24,13 +24,7 @@ app.get('/exchanges', (req, res) => {
 app.post('/addAccount', (req, res) => {
   const key = req.body
   db.addAccount(key, (result) => {
-    if(result === 'this account was added') {
-      console.log('result', result)
-      res.json(result)
-    } else {
-      console.log(result)
-      res.end()
-    }
+    res.json(result)
   })
 })
 

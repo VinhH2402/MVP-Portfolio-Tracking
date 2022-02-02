@@ -149,7 +149,12 @@ th.total {
 .input-keys input {
   width: 20em;
   height: 1.5em;
-  margin: 10px 0
+  margin: 10px 0;
+}
+
+#sandbox{
+  font-size: 9px;
+  width: 3em;
 }
 
 .select-exchange-option select{

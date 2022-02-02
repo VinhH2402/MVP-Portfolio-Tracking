@@ -32,7 +32,7 @@ const addAccount = (data, callback) => {
       if (result) {
         callback('this account was added')
       } else {
-        const { API_KEY, SECRET_KEY, passphrase, exchange } = data;
+        const { API_KEY, SECRET_KEY, passphrase, exchange, sandbox } = data;
         let exchangeName = exchange.toLowerCase().replace('.', '')
         const config = {
           apiKey: API_KEY,
@@ -46,8 +46,7 @@ const addAccount = (data, callback) => {
 
         const exchangeApi = new ccxt[exchangeName](config);
         
-        //will edit later
-        if(exchangeName === 'binance' || exchangeName === 'coinbasepro') {
+        if(sandbox === true) {
           exchangeApi.setSandboxMode (true);
         }
 
