@@ -13,7 +13,9 @@ db.once('open', function () {
 const keysSchema = new mongoose.Schema({
   exchange: String,
   API_KEY: String,
-  SECRET_KEY: String
+  SECRET_KEY: String, 
+  passphrase: String,
+  sandbox: Boolean
 });
 
 const Keys = mongoose.model('Keys', keysSchema);

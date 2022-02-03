@@ -1,6 +1,7 @@
 import React from "react";
 import ExchangeLogo from "./ExchangeLogo";
 import axios from "axios";
+import './addAccount.css';
 
 class AddAccount extends React.Component {
   constructor(props) {
@@ -53,14 +54,17 @@ class AddAccount extends React.Component {
   render() {
     const { exchange, apiKey, secretKey, passphrase, sandbox, errorText } = this.state;
     let togglePassphrase = false;
-    const exchangeNeedPassphrase = ['Coinbase','Kucoin']
-    if(exchangeNeedPassphrase.includes(exchange)) {
+    const exchangeNeedPassphrase = ['Coinbase', 'Kucoin']
+    if (exchangeNeedPassphrase.includes(exchange)) {
       togglePassphrase = true;
     }
     return (
       <div id='add-account'>
-        <h1> ADD ACCOUNT </h1>
-        <button onClick={this.props.handleClick}>MAIN PAGE</button><br></br>
+        <div className="add-account-header">
+          <span className='back-button' onClick={this.props.handleClick}>{'<'}</span>
+          <h3 className="add-account-text">ADD ACCOUNT</h3>
+        </div>
+
         <div className="input-keys">
           <ExchangeLogo exchange={exchange} />
           <div className="select-exchange-option">

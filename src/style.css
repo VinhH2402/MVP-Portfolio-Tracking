@@ -1,5 +1,3 @@
-
-
 h1 {
   text-align: center;
 }
@@ -46,9 +44,8 @@ h1 {
   text-align:center;
   transition: all 0.15s;
 }
-.add_exchange button:hover,
- .remove-exchange button:hover,
- .add-account button:hover{
+
+button:hover{
   text-shadow: 0 0 2em rgba(255,255,255,1);
   color:#FFFFFF;
   border-color:#FFFFFF;
@@ -146,38 +143,9 @@ th.total {
   text-align: right;
 }
 
-.input-keys input {
-  width: 20em;
-  height: 1.5em;
-  margin: 10px 0;
-}
 
-#sandbox{
-  font-size: 9px;
-  width: 3em;
-}
 
-.select-exchange-option select{
-  width: 20.5em;
-  height: 2em;
-  margin: 8px 0
-}
 
-.input-keys div{
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  text-align: center;
-}
 
-.exchange-logo img{
-  width: 220px;
-  height: 100px;
-  margin: 0;
-  border: 1px solid black;
-}
 
-.error-text {
-  font-size: 20px;
-  color: red
-}
+
