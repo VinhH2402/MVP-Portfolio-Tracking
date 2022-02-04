@@ -35,7 +35,7 @@ class Exchange extends React.Component {
                 <td className='exchange_total'>{currencyTotal}</td>
                 <td className='remove-exchange'>
                   <div>
-                    <button id={exchangeName} onClick={this.props.removeExchange}>REMOVE</button>
+                    <button id={exchange.id} onClick={this.props.removeExchange}>REMOVE</button>
                   </div>
                 </td>
               </tr>

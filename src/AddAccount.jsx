@@ -8,6 +8,7 @@ class AddAccount extends React.Component {
     super(props)
     this.handleInput = this.handleInput.bind(this);
     this.handleAddAccount = this.handleAddAccount.bind(this);
+    this.autoInputKeys = this.autoInputKeys.bind(this)
     this.state = {
       exchange: 'Binance',
       apiKey: '',
@@ -26,6 +27,55 @@ class AddAccount extends React.Component {
     })
   }
 
+  autoInputKeys(e) {
+    if (e.target.value === 'Binance') {
+      this.setState({
+        exchange: e.target.value,       
+        apiKey: '7mkRbbrPtqAHMw4VIeHYNmEeczmg5UeeUXQO54bOvjReRjIkfZ9c7gimr8mMtFiq',
+        secretKey: '2IjzxQClS3RxlMH3pFokDpdXUMdIufpgp6qivN9kRwtHYiJOS8W6YqIeAunrFqFN',
+        sandbox: true
+      })
+    }
+    if (e.target.value === 'BinanceUS') {
+      this.setState({
+        exchange: e.target.value,
+        apiKey: 'DPHowXgRy80h9MBCaH8KXk3GPIMx25rScFaXz120TMsJEQNj1s7azowGkCEgfh1h',
+        secretKey: 'o6Z7jr9BzsYBVsXp1XONaNLMu8AeIpqOaqgADXpox6WWBVM7ErAxmy7XKH7ITgd6',
+        sandbox: false
+      })
+    }
+
+    if (e.target.value === 'Kucoin') {
+      this.setState({
+        exchange: e.target.value,
+        apiKey: '61f9ccd2b170ab000108e497',
+        secretKey: '6edcf839-eccb-4ef0-83f4-04be7f23519b',
+        passphrase: 'VinhNhu@0205',
+        sandbox: false
+      })
+    }
+
+    if (e.target.value === 'CoinbasePro') {
+      this.setState({
+        exchange: e.target.value,
+        apiKey: '8966d631fcb3830a0ac4eb4fed7b754d',
+        secretKey: 'BpJbqAVqlg7YGw0uRHr7i071cd3ORNlB+Ola4240ekCiSpDbzlUSY1qRuX3Ff3a6m7amoSZDRQIo2in3uSeftQ==',
+        sandbox: true,
+        passphrase: '1u0budpiwt6'
+      })
+    }
+
+    if (e.target.value === 'Gate.io') {
+      this.setState({
+        exchange: e.target.value,
+        apiKey: '714ffe6020e43996828ee5e8182eaa61',
+        secretKey: '455311277a1d025ce0dd80af265c9edff0297cc1b67533d52f842500b63b80c8',
+        sandbox: false
+      })
+    }
+
+  }
+
   handleAddAccount(e) {
     const { exchange, apiKey, secretKey, passphrase, sandbox } = this.state
     const data = {
@@ -37,7 +87,7 @@ class AddAccount extends React.Component {
     }
     axios.post('/addAccount', data)
       .then((result) => {
-        if(result.data === 'keys are saved') {
+        if (result.data === 'keys are saved') {
           this.props.handleClick();
         } else {
           this.setState({
@@ -56,7 +106,7 @@ class AddAccount extends React.Component {
   render() {
     const { exchange, apiKey, secretKey, passphrase, sandbox, errorText } = this.state;
     let togglePassphrase = false;
-    const exchangeNeedPassphrase = ['Coinbase', 'Kucoin']
+    const exchangeNeedPassphrase = ['CoinbasePro', 'Kucoin']
     if (exchangeNeedPassphrase.includes(exchange)) {
       togglePassphrase = true;
     }
@@ -70,10 +120,10 @@ class AddAccount extends React.Component {
         <div className="input-keys">
           <ExchangeLogo exchange={exchange} />
           <div className="select-exchange-option">
-            <select id='exchange' value={exchange} onChange={this.handleInput}>
+            <select id='exchange' value={exchange} onChange={this.autoInputKeys}>
               <option value="Binance">Binance</option>
               <option value="BinanceUS">BinanceUS</option>
-              <option value="Coinbase">Coinbase</option>
+              <option value="CoinbasePro">CoinbasePro</option>
               <option value="Kucoin">Kucoin</option>
               <option value="Gate.io">Gate.io</option>
             </select>

@@ -11,7 +11,7 @@ class App extends React.Component {
       this.handleClick = this.handleClick.bind(this);
       this.handleInput = this.handleInput.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.fetchData = this.fetchData.bind(this);
+      this.fetchAccount = this.fetchAccount.bind(this);
       this.getTotalAssets = this.getTotalAssets.bind(this);
       this.removeExchange = this.removeExchange.bind(this);
       this.state = {
@@ -32,8 +32,8 @@ class App extends React.Component {
       })
    }
 
-   fetchData() {
-      axios.get('/fetchdata')
+   fetchAccount() {
+      axios.get('/fetchaccounts')
          .then(res => {
             this.setState({
                exchanges: res.data
@@ -42,16 +42,15 @@ class App extends React.Component {
    }
 
    removeExchange(e) {
-      const exchangeName = e.target.id;
-      console.log(exchangeName)
-      axios.put('/remove', { exchangeName: exchangeName })
+      const id = e.target.id;
+      axios.put('/remove', { id: id })
          .then(() => {
-            this.fetchData();
+            this.fetchAccount();
          })
    }
 
    componentDidMount() {
-      this.fetchData();
+      this.fetchAccount();
    }
 
    handleClick() {
