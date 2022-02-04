@@ -11,7 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@binance/connector": "^1.7.0",
     "axios": "^0.22.0",
     "ccxt": "^1.71.81",
     "express": "^4.17.1",

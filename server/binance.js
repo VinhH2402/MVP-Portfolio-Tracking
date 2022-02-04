@@ -1,5 +1,5 @@
 const db = require('../db')
-const { Spot } = require('@binance/connector')
+
 
 const burl = 'https://testnet.binance.vision';
 
@@ -12,7 +12,8 @@ const account = async (callback) => {
     .then(response => {
       const data = response.data.balances;
       const responseData = data.filter(item => item.free > 0.01) 
-      callback(responseData)
+      // callback(responseData)
+      return responseData;
     })
 }
 

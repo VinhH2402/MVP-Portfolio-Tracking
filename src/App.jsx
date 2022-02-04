@@ -11,15 +11,14 @@ class App extends React.Component {
       this.handleClick = this.handleClick.bind(this);
       this.handleInput = this.handleInput.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.getData = this.getData.bind(this);
+      this.fetchData = this.fetchData.bind(this);
       this.getTotalAssets = this.getTotalAssets.bind(this);
       this.removeExchange = this.removeExchange.bind(this);
       this.state = {
-         addExchange: true,
-         buttonLabel: 'ADD EXCHANGE',
+         addAccount: false,
          exchange: '',
-         a_key: '',
-         s_key: '',
+         apiKey: '',
+         secretKey: '',
          exchanges: [],
          totalAssets: 0
       }
@@ -33,26 +32,12 @@ class App extends React.Component {
       })
    }
 
-   getData() {
-      const exchanges = [];
-      const promises = [];
-      axios.get('/exchanges')
+   fetchData() {
+      axios.get('/fetchdata')
          .then(res => {
-            const allexchanges = res.data
-            allexchanges.forEach((exchange, index) => {
-               promises.push(axios.get(`/${exchange}`)
-                  .then(result => {
-                     exchanges.push({ id: index, name: exchange, data: result.data })
-                  })
-               )
+            this.setState({
+               exchanges: res.data
             })
-            Promise.all(promises)
-               .then(() => {
-                  const sortExchanges = exchanges.sort((a, b) => a.id - b.id)
-                  this.setState({
-                     exchanges: sortExchanges
-                  })
-               })
          })
    }
 
@@ -61,20 +46,18 @@ class App extends React.Component {
       console.log(exchangeName)
       axios.put('/remove', { exchangeName: exchangeName })
          .then(() => {
-            this.getData();
+            this.fetchData();
          })
    }
 
    componentDidMount() {
-      this.getData();
+      this.fetchData();
    }
 
    handleClick() {
-      const { addExchange } = this.state;
-      const buttonLabel = this.state.buttonLabel === 'BACK' ? 'ADD EXCHANGE' : 'BACK'
+      const { addAccount } = this.state;
       this.setState({
-         addExchange: !addExchange,
-         buttonLabel: buttonLabel
+         addAccount: !addAccount
       })
    }
 
@@ -86,32 +69,31 @@ class App extends React.Component {
    }
 
    handleSubmit(e) {
-      const { exchange, s_key, a_key } = this.state
+      const { exchange, secretKey, apiKey } = this.state
       const data = {
          exchange: exchange,
-         API_KEY: a_key,
-         SECRET_KEY: s_key
+         API_KEY: apiKey,
+         SECRET_KEY: secretKey
       }
       axios.post('/addkey', data)
          .then(() => {
             this.setState({
-               addExchange: false,
+               addAccount: false,
                buttonLabel: 'ADD EXCHANGE',
                exchange: '',
-               a_key: '',
-               s_key: ''
+               apiKey: '',
+               secretKey: ''
             })
          })
          .catch(err => err)
    }
 
    render() {
-      const { addExchange, buttonLabel, exchanges, totalAssets } = this.state;
-      return addExchange === false ?
+      const { addAccount, exchanges, totalAssets } = this.state;
+      return addAccount === false ?
          (
             <div>
                <h1>PORTFOLIO TRACKING</h1>
-
                <div>
                   <table id="total_assets">
                      <tbody>
@@ -120,7 +102,7 @@ class App extends React.Component {
                            <td className='assets_number'>{totalAssets}</td>
                            <td>
                               <div className='add_exchange'>
-                                 <button onClick={this.handleClick}>{buttonLabel}</button>
+                                 <button onClick={this.handleClick}>ADD ACCOUNT</button>
                               </div>
                            </td>
                         </tr>
@@ -135,7 +117,7 @@ class App extends React.Component {
             </div>
          )
          :
-         (<AddAccount handleClick={this.handleClick}/>)
+         (<AddAccount handleClick={this.handleClick} />)
    }
 }
 

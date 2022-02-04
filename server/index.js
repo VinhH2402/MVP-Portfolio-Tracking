@@ -1,6 +1,5 @@
 const express = require('express');
-const binance = require('./binance.js');
-const binanceUS = require('./binanceUS.js')
+const ccxt = require('ccxt');
 const app = express();
 const port = 3000;
 const path = require('path')
@@ -11,13 +10,40 @@ app.use(express.static(path.join(__dirname, '/../dist')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.get('/exchanges', (req, res) => {
+app.get('/fetchdata', (req, res) => {
+  const promiseAll = [];
+  const responseData = [];
   db.Keys.find()
-    .then(results => {
-      const exchanges = results.map(item => {
-        return item.exchange
+    .then(async (results) => {
+      results.forEach(item => {
+        const exchangeName = item.exchange.toLowerCase().replace('.', '');
+        const config = {
+          apiKey: item.API_KEY,
+          secret: item.SECRET_KEY,
+          password: item.passphrase
+        };
+
+
+        const exchangeApi = new ccxt[exchangeName](config);
+        if (item.sandbox === true) { exchangeApi.setSandboxMode(true) }
+        promiseAll.push(exchangeApi.fetchBalance()
+          .then((resData) => {
+            const data = resData.info.balances;
+            const filterData = data.filter(symbol => Number(symbol.free) + Number(symbol.locked));
+            const returnData = {
+              id: item.id,
+              exchangeName: exchangeName,
+              balances: filterData
+            }
+            responseData.push(returnData)
+          })
+          .catch((error) => console.log('fetch balance error', error))
+        )
       })
-      res.json(exchanges)
+
+      Promise.all(promiseAll)
+        .then(() => res.json(responseData))
+        .catch(error => res.json(error))
     })
 })
 
@@ -39,27 +65,12 @@ app.post('/delete', (req, res) => {
 
 app.put('/remove', (req, res) => {
   db.Keys.deleteOne(req.body)
-    .then(result => {
-      console.log(result)
-      console.log(req.body)
-      console.log(req.body.exchangeName + ' DELETED')
-      res.end()
+    .then(() => {
+      console.log(req.body.exchangeName + ' DELETED');
+      res.end();
     })
 })
 
-
-app.get('/Binance', (req, res) => {
-  binance.account((data) => {
-    res.json(data)
-  })
-})
-
-app.get('/BinanceUS', (req, res) => {
-  binanceUS.account((data) => {
-    res.json(data)
-  })
-
-})
 
 app.listen(port, () => {
   console.log(`Portfolio Tracking app listening at http://localhost:${port}`)

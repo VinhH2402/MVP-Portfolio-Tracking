@@ -8,31 +8,31 @@ class Exchange extends React.Component {
     this.state = {}
   }
 
-  getTotalBalance(total, exchange) {
-    this.state[exchange.name] = total;
+  getTotalBalance(accountBalance, exchangeName) {
+    this.state[exchangeName] = accountBalance;
     let totalAssets = 0;
     for (const key in this.state) {
       totalAssets += this.state[key]
     }
     this.props.getTotalAssets(totalAssets)
     this.setState({
-      [exchange.name]: total
+      [exchangeName]: accountBalance
     })
   }
 
   render() {
     const { exchanges } = this.props;
     return exchanges.map(exchange => {
-      const exchangeName = exchange.name;
-      const currency = new Intl.NumberFormat('en-US',
+      const exchangeName = exchange.exchangeName;
+      const currencyTotal = new Intl.NumberFormat('en-US',
         { style: 'currency', currency: 'USD' }).format(this.state[exchangeName]);
       return (
-        <div key={exchange.name}>
+        <div key={exchange.id}>
           <table id='exchange_name'>
             <tbody>
               <tr>
                 <td className='exchange_name'>{exchangeName.toUpperCase()}</td>
-                <td className='exchange_total'>{currency}</td>
+                <td className='exchange_total'>{currencyTotal}</td>
                 <td className='remove-exchange'>
                   <div>
                     <button id={exchangeName} onClick={this.props.removeExchange}>REMOVE</button>

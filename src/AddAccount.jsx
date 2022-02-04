@@ -20,8 +20,9 @@ class AddAccount extends React.Component {
 
   handleInput(e) {
     const id = e.target.id;
+    const value = id === 'sandbox' ? e.target.checked : e.target.value;
     this.setState({
-      [id]: e.target.value
+      [id]: value
     })
   }
 
@@ -36,16 +37,17 @@ class AddAccount extends React.Component {
     }
     axios.post('/addAccount', data)
       .then((result) => {
-        this.setState({
-          errorText: result.data
-        })
-        // this.setState({
-        //   addExchange: false,
-        //   buttonLabel: 'ADD EXCHANGE',
-        //   exchange: '',
-        //   a_key: '',
-        //   s_key: ''
-        // })
+        if(result.data === 'keys are saved') {
+          this.props.handleClick();
+        } else {
+          this.setState({
+            errorText: result.data,
+            API_KEY: '',
+            SECRET_KEY: '',
+            passphrase: '',
+            sandbox: false,
+          })
+        }
       })
       .catch(err => err)
   }

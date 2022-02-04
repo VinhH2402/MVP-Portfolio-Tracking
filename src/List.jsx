@@ -4,14 +4,14 @@ import 'regenerator-runtime/runtime.js';
 class List extends React.Component {
   constructor(props) {
     super(props)
-    this.cache = {}
+    this.cache = {};
     this.state = {
       account: []
     }
   }
 
   componentDidMount() {
-    let account = this.props.exchange.data;
+    let account = this.props.exchange.balances;
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/!ticker@arr')
     ws.onmessage = async (event) => {
       const priceData = JSON.parse(event.data);
@@ -30,16 +30,14 @@ class List extends React.Component {
           }
         }
       }
-  
       account.forEach(item => {
         accountBalance += item.totalValue
       })
-      this.props.getTotalBalance(accountBalance, this.props.exchange)
-
+ 
+      this.props.getTotalBalance(accountBalance, this.props.exchange.exchangeName)
       this.setState({
         account: account
       })
-
     }
   }
 
@@ -67,7 +65,7 @@ class List extends React.Component {
         };
         this.cache[asset] = price;
       }
-  
+
       return (
         <tr key={index}>
           <td className='align_left' className='number'>{index + 1}</td>
