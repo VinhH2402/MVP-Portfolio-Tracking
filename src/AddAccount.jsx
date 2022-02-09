@@ -2,6 +2,8 @@ import React from "react";
 import ExchangeLogo from "./ExchangeLogo";
 import axios from "axios";
 import './addAccount.css';
+import AccountInfo from "./AccountInfo";
+
 
 class AddAccount extends React.Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class AddAccount extends React.Component {
   autoInputKeys(e) {
     if (e.target.value === 'Binance') {
       this.setState({
-        exchange: e.target.value,       
+        exchange: e.target.value,
         apiKey: '7mkRbbrPtqAHMw4VIeHYNmEeczmg5UeeUXQO54bOvjReRjIkfZ9c7gimr8mMtFiq',
         secretKey: '2IjzxQClS3RxlMH3pFokDpdXUMdIufpgp6qivN9kRwtHYiJOS8W6YqIeAunrFqFN',
         sandbox: true
@@ -50,7 +52,7 @@ class AddAccount extends React.Component {
         exchange: e.target.value,
         apiKey: '61f9ccd2b170ab000108e497',
         secretKey: '6edcf839-eccb-4ef0-83f4-04be7f23519b',
-        passphrase: 'VinhNhu@0205',
+        passphrase: '',
         sandbox: false
       })
     }
@@ -89,6 +91,7 @@ class AddAccount extends React.Component {
       .then((result) => {
         if (result.data === 'keys are saved') {
           this.props.handleClick();
+          this.props.fetchAccount();
         } else {
           this.setState({
             errorText: result.data,
@@ -116,49 +119,17 @@ class AddAccount extends React.Component {
           <span className='back-button' onClick={this.props.handleClick}>{'<'}</span>
           <h3 className="add-account-text">ADD ACCOUNT</h3>
         </div>
-
         <div className="input-keys">
           <ExchangeLogo exchange={exchange} />
-          <div className="select-exchange-option">
-            <select id='exchange' value={exchange} onChange={this.autoInputKeys}>
-              <option value="Binance">Binance</option>
-              <option value="BinanceUS">BinanceUS</option>
-              <option value="CoinbasePro">CoinbasePro</option>
-              <option value="Kucoin">Kucoin</option>
-              <option value="Gate.io">Gate.io</option>
-            </select>
-          </div>
-
-          <div>
-            <input type="text" id='apiKey'
-              placeholder='API_KEY'
-              value={apiKey}
-              onChange={this.handleInput} />
-          </div>
-          <div>
-            <input type="text" id='secretKey'
-              placeholder='SECRET_KEY'
-              value={secretKey}
-              onChange={this.handleInput} />
-          </div>
-          {togglePassphrase ?
-            <div>
-              <input type="text" id='passphrase'
-                placeholder='passphrase'
-                value={passphrase}
-                onChange={this.handleInput} />
-            </div> :
-            null
-          }
-          <div className="sandbox-check">
-            <label>
-              <input type="checkbox" id='sandbox'
-                value={sandbox}
-                onChange={this.handleInput} />
-              Sandbox
-            </label>
-          </div>
-          {errorText ? <div className="error-text">{errorText}</div> : null}
+          <AccountInfo
+            exchange={exchange}
+            handleInput={this.autoInputKeys}
+            apiKey={apiKey}
+            secretKey={secretKey}
+            passphrase={passphrase}
+            sandbox={sandbox}
+          />
+          {errorText && (<div className="error-text">{errorText}</div>)}
           <div className="add-account">
             <button onClick={this.handleAddAccount}>Add Account</button>
           </div>

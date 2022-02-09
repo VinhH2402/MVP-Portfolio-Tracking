@@ -1,10 +1,10 @@
 import React from "react";
-import 'regenerator-runtime/runtime.js';
 import axios from "axios";
 
 class List extends React.Component {
   constructor(props) {
     super(props)
+    this._isMount = true;
     this.state = {
       accountBalances: []
     }
@@ -35,7 +35,7 @@ class List extends React.Component {
     return price;
   }
 
-  async componentDidMount() {
+  async getSymbolInfo () {
     let accountBalances = this.props.exchange.balances;
     const exchangeName = this.props.exchange.exchangeName;
     const prices = await this.pricesApi(exchangeName);
@@ -47,35 +47,20 @@ class List extends React.Component {
       item.totalValue = Number(price) * Number(item.balance);
       exchangeTotal += item.totalValue;
     })
-    this.props.getTotalBalance(exchangeTotal, exchangeName)
-    this.setState({
-      accountBalances: accountBalances
-    })
+    this.props.getTotalBalance(exchangeTotal, exchangeName);
+    if(this._isMount) {
+      this.setState({
+        accountBalances: accountBalances
+      });
+    }
+  }
 
-    //websocket
-    // const ws = new WebSocket('wss://stream.binance.com:9443/ws/!ticker@arr')
-    // ws.onmessage = async (event) => {
-    //   const priceData = JSON.parse(event.data);
-    //   let accountBalance = 0;
-    //   for (const pair of priceData) {
-    //     for (const coin of account) {
-    //       if (pair.s === coin.asset + 'USDT') {
-    //         coin.price = parseFloat(Number(pair.c));
-    //         coin.quantity = parseFloat(Number(coin.free) + Number(coin.locked))
-    //         coin.totalValue = coin.quantity * coin.price;
-    //       }
-    //       if (coin.asset === 'USDT' || coin.asset === 'USD' || coin.asset === 'BUSD') {
-    //         coin.price = 1;
-    //         coin.quantity = parseFloat(Number(coin.free) + Number(coin.locked))
-    //         coin.totalValue = coin.quantity * coin.price;
-    //       }
-    //     }
-    //   }
-    //   account.forEach(item => {
-    //     accountBalance += item.totalValue
-    //   })
-    //   this.props.getTotalBalance(accountBalance, this.props.exchange.exchangeName)
-    // }
+  componentDidMount() {
+    this.getSymbolInfo();
+  }
+
+  componentWillUnmount() {
+    this._isMount = false;
   }
 
   render() {

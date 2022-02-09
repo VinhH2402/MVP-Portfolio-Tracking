@@ -21,7 +21,7 @@ class Exchange extends React.Component {
   }
 
   render() {
-    const { exchanges } = this.props;
+    const { exchanges, removeAccount } = this.props;
     return exchanges.map(exchange => {
       const exchangeName = exchange.exchangeName;
       const currencyTotal = new Intl.NumberFormat('en-US',
@@ -33,9 +33,9 @@ class Exchange extends React.Component {
               <tr>
                 <td className='exchange_name'>{exchangeName.toUpperCase()}</td>
                 <td className='exchange_total'>{currencyTotal}</td>
-                <td className='remove-exchange'>
+                <td className='remove-account'>
                   <div>
-                    <button id={exchange.id} onClick={this.props.removeExchange}>REMOVE</button>
+                    <button id={exchange.id} onClick={removeAccount}>REMOVE</button>
                   </div>
                 </td>
               </tr>

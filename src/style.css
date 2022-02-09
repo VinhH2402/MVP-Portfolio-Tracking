@@ -3,11 +3,11 @@ h1 {
 }
 
 .add_exchange,
-.remove-exchange {
+.remove-account {
   text-align: right;
 }
 
-.remove-exchange button {
+.remove-account button {
   height: 2em;
   width: 6em;
   display:inline-block;

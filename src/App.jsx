@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import Exchange from './Exchange';
-import './style.css';
 import AddAccount from './AddAccount';
+import Header from './Header';
+import './style.css';
 
 
 class App extends React.Component {
@@ -13,7 +14,7 @@ class App extends React.Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.fetchAccount = this.fetchAccount.bind(this);
       this.getTotalAssets = this.getTotalAssets.bind(this);
-      this.removeExchange = this.removeExchange.bind(this);
+      this.removeAccount = this.removeAccount.bind(this);
       this.state = {
          addAccount: false,
          exchange: '',
@@ -39,17 +40,23 @@ class App extends React.Component {
                exchanges: res.data
             })
          })
+         .catch(error => console.log(error))
    }
 
-   removeExchange(e) {
+   removeAccount(e) {
       const id = e.target.id;
       axios.put('/remove', { id: id })
          .then(() => {
             this.fetchAccount();
          })
+         .catch(error => console.log(error))
    }
 
    componentDidMount() {
+      this.fetchAccount();
+   }
+
+   componentWillUnmount() {
       this.fetchAccount();
    }
 
@@ -90,33 +97,16 @@ class App extends React.Component {
    render() {
       const { addAccount, exchanges, totalAssets } = this.state;
       return addAccount === false ?
-         (
-            <div>
-               <h1>PORTFOLIO TRACKING</h1>
-               <div>
-                  <table id="total_assets">
-                     <tbody>
-                        <tr>
-                           <td className='total_assets'>TOTAL ASSETS</td>
-                           <td className='assets_number'>{totalAssets}</td>
-                           <td>
-                              <div className='add_exchange'>
-                                 <button onClick={this.handleClick}>ADD ACCOUNT</button>
-                              </div>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-               <Exchange
-                  exchanges={exchanges}
-                  getTotalAssets={this.getTotalAssets}
-                  removeExchange={this.removeExchange}
-               />
-            </div>
-         )
+         (<div>
+            <Header totalAssets={totalAssets} handleClick={this.handleClick} />
+            <Exchange
+               exchanges={exchanges}
+               getTotalAssets={this.getTotalAssets}
+               removeAccount={this.removeAccount}
+            />
+         </div>)
          :
-         (<AddAccount handleClick={this.handleClick} />)
+         (<AddAccount handleClick={this.handleClick} fetchAccount={this.fetchAccount} />)
    }
 }
 

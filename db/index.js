@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 const ccxt = require('ccxt')
 
+main().catch(err => console.log(err));
+async function main(){
+  mongoose.connect('mongodb://localhost:27017/accounts', { useNewUrlParser: true, useUnifiedTopology: true });
+}
 
-mongoose.connect('mongodb://localhost:27017/allexchanges', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.on('open', function () {
   console.log('data connected')
 })
 
 const keysSchema = new mongoose.Schema({
   exchange: String,
   API_KEY: String,
-  SECRET_KEY: String, 
+  SECRET_KEY: String,
   passphrase: String,
   sandbox: Boolean
 });
@@ -41,15 +44,11 @@ const addAccount = (data, callback) => {
           secret: SECRET_KEY,
           password: passphrase
         };
-        //will remove later
-        if(exchangeName === 'coinbase') {
-          exchangeName += 'pro'
-        }
 
         const exchangeApi = new ccxt[exchangeName](config);
-        
-        if(sandbox === true) {
-          exchangeApi.setSandboxMode (true);
+
+        if (sandbox === true) {
+          exchangeApi.setSandboxMode(true);
         }
 
         exchangeApi.fetchBalance()
