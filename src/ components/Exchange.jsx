@@ -22,6 +22,7 @@ class Exchange extends React.Component {
 
   render() {
     const { exchanges, removeAccount } = this.props;
+    console.log('length', exchanges.length)
     return exchanges.map(exchange => {
       const exchangeName = exchange.exchangeName;
       const currencyTotal = new Intl.NumberFormat('en-US',
@@ -41,7 +42,11 @@ class Exchange extends React.Component {
               </tr>
             </tbody>
           </table>
-          <TableHeader exchange={exchange} getTotalBalance={this.getTotalBalance} />
+          <TableHeader
+            exchange={exchange}
+            getTotalBalance={this.getTotalBalance}
+            totalExchanges={exchanges.length}
+          />
         </div>
       );
     })

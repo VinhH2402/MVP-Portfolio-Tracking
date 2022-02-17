@@ -5,7 +5,7 @@ const port = 3000;
 const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('../db');
-const exchanges = require('./exchanges');
+const filterBalance = require('./filterBalance');
 
 
 app.use(express.static(path.join(__dirname, '/../dist')))
@@ -14,40 +14,34 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 const getAccounts = () => {
   return db.Keys.find()
-  .then(results => results)
-  .catch(error => error)
+    .then(results => results)
+    .catch(error => error)
 };
 
 const getAccountsBalance = async (accounts) => {
   const promiseAll = [];
   const responseData = [];
-  accounts.forEach(account => {
-    const exchangeName = account.exchange.toLowerCase().replace('.', '');
+
+  for(const acc of accounts) {
+    const exchangeName = acc.exchange.toLowerCase().replace('.', '');
     const config = {
-      apiKey: account.API_KEY,
-      secret: account.SECRET_KEY,
-      password: account.passphrase
+      apiKey: acc.API_KEY,
+      secret: acc.SECRET_KEY,
+      password: acc.passphrase
     };
 
     const exchangeApi = new ccxt[exchangeName](config);
-    if (account.sandbox === true) { exchangeApi.setSandboxMode(true) }
-    promiseAll.push(exchangeApi.fetchBalance()
-      .then((resData) => {
-        const balances = exchanges[exchangeName](resData);
-        const returnData = {
-          id: account.id,
-          exchangeName: exchangeName,
-          balances: balances
-        }
-        responseData.push(returnData)
-      })
-      .catch((error) => console.log('fetch balance error', error))
-    )
-  })
+    if (acc.sandbox === true) { exchangeApi.setSandboxMode(true) }
 
-  return Promise.all(promiseAll)
-    .then(() => responseData)
-    .catch(error => (error))
+    const fetchBalances = await exchangeApi.fetchBalance();
+    const balances = filterBalance[exchangeName](fetchBalances)
+    const sortedBalances = balances.sort((a, b) => {
+      return b.balance - a.balance
+    })
+ 
+    responseData.push({id: acc.id ,exchangeName: exchangeName, balances: sortedBalances})
+  }
+  return responseData
 }
 
 app.get('/fetchaccounts', async (req, res) => {
@@ -61,6 +55,7 @@ app.get('/fetchprices', (req, res) => {
   const exchangeApi = new ccxt[exchangeName];
   exchangeApi.fetchTickers()
     .then(result => res.json(result))
+    .catch(error => res.json(error))
 })
 
 app.post('/addAccount', (req, res) => {
@@ -79,16 +74,10 @@ app.post('/delete', (req, res) => {
 })
 
 app.put('/remove', (req, res) => {
-  console.log(req.body)
-  db.Keys.deleteOne(req.body)
+  db.Keys.deleteOne({ _id: req.body.id })
     .then((result) => {
-      db.Keys.find()
-      .then((r) => {
-        console.log('>>>>>>>>', r)
-        console.log(req.body.id + ' DELETED',  result );
-        res.end();
-      
-      })
+      console.log(req.body.exchange + ' REMOVE', result);
+      res.send(result);
     })
 })
 

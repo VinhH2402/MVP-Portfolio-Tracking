@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from 'react';
-import Exchange from './Exchange';
-import AddAccount from './AddAccount';
-import Header from './Header';
+import Exchange from './ components/Exchange';
+import AddAccount from './ components/AddAccount';
+import Header from './ components/Header';
 import './style.css';
 
 
@@ -56,10 +56,6 @@ class App extends React.Component {
       this.fetchAccount();
    }
 
-   componentWillUnmount() {
-      this.fetchAccount();
-   }
-
    handleClick() {
       const { addAccount } = this.state;
       this.setState({
@@ -95,6 +91,7 @@ class App extends React.Component {
    }
 
    render() {
+      console.log('render app')
       const { addAccount, exchanges, totalAssets } = this.state;
       return addAccount === false ?
          (<div>

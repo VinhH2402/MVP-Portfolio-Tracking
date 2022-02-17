@@ -1,36 +1,40 @@
 
 module.exports = {
-  coinbasepro: function (data){
-    const filtedData = data.info.filter(symbol => symbol.balance > 0.01)
+  coinbasepro: function (data) {
+    const filtedData = data.info.filter(symbol => symbol.balance > 0)
     return filtedData
-  }, 
-  binance: function(data) {
+  },
+
+  binance: function (data) {
     const filtedData = [];
     for(symbol in data.total) {
-      if(data.total[symbol] > 0.01) {
+      if(data.total[symbol] > 0) {
         filtedData.push({currency: symbol, balance: data.total[symbol]})
       }
     }
     return filtedData;
   },
-  binanceus: function(data) {
+
+  binanceus: function (data) {
     const filtedData = [];
-    for(symbol in data.total) {
-      if(data.total[symbol] > 0.01) {
-        filtedData.push({currency: symbol, balance: data.total[symbol]})
+    for (symbol in data.total) {
+      if (data.total[symbol] > 0) {
+        filtedData.push({ currency: symbol, balance: data.total[symbol] })
       }
     }
     return filtedData;
   },
-  kucoin: function(data) {
-    const filtedData = data.info.data.filter(symbol => Number(symbol.balance) > 0.01)
+
+  kucoin: function (data) {
+    const filtedData = data.info.data.filter(symbol => Number(symbol.balance) > 0)
     return filtedData;
   },
-  gateio: function(data) {
+  
+  gateio: function (data) {
     const filtedData = [];
     data.info.forEach(item => {
       const total = Number(item.available) + Number(item.locked);
-      if(total > 0.01) {
+      if (total > 0) {
         filtedData.push({
           currency: item.currency,
           balance: total
