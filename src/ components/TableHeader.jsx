@@ -12,11 +12,7 @@ function TableHeader(props) {
           <th className="price">Price</th>
           <th className="total-value">Total Value</th>
         </tr>
-        <List
-          exchange={props.exchange}
-          getTotalBalance={props.getTotalBalance}
-          totalExchanges={props.totalExchanges}
-        />
+        <List balances={props.balances}/>
       </tbody>
     </table>
   )

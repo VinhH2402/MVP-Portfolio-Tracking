@@ -47,9 +47,13 @@ class App extends React.Component {
       const id = e.target.id;
       axios.put('/remove', { id: id })
          .then(() => {
-            this.fetchAccount();
+            let exchanges = this.state.exchanges;
+            exchanges = exchanges.filter(exchange => exchange.id !== id)
+            this.setState({
+               exchanges: exchanges
+            })
          })
-         .catch(error => console.log(error))
+         .catch(error => error)
    }
 
    componentDidMount() {
