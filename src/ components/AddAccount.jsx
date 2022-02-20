@@ -52,7 +52,7 @@ class AddAccount extends React.Component {
         exchange: e.target.value,
         apiKey: '61f9ccd2b170ab000108e497',
         secretKey: '6edcf839-eccb-4ef0-83f4-04be7f23519b',
-        passphrase: '',
+        passphrase: 'VinhNhu@0205',
         sandbox: false
       })
     }
