@@ -18,9 +18,10 @@ Clone repo
 
 ## Add Account page
 ![alt text](https://i.ibb.co/j8mHJNH/Screen-Shot-2022-02-20-at-10-51-12-AM.jpg)
+* Get apiKey and secretKey from exchange (should set read only)
 * Click on 'ADD ACCOUNT' will lead to add account page 
 * Select exchange
-* Fill out 'API KEY' and 'SECRET KEY', some exchange will need 'Pass phrase'
+* Fill out 'API KEY' and 'SECRET KEY', some exchange will need 'Pass phrase' 
 * If that is sandbox or testnet account check on sandbox
 * Click on 'Add Account' button:
   * Have notification if that account is invalid or added
