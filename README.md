@@ -11,7 +11,7 @@ Clone repo
 
 ## Main page
 * Main page will show all crypto balances greater than 0 and calculate total value, total balances and total assets.
-* Response from exchanges may take couple second to get account balances.
+* Response from exchanges API may take couple second to get account balances.
 ![alt text](https://i.ibb.co/vc5NxfL/Screen-Shot-2022-02-20-at-10-51-02-AM.jpg)
 * main page diagram
 ![alt text](https://i.ibb.co/XkfMxNr/Screen-Shot-2022-02-20-at-11-10-45-AM.jpg)
