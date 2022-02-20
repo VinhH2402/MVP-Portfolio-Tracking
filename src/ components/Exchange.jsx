@@ -35,9 +35,7 @@ class Exchange extends React.Component {
     if (ticker === 'USD') {
       return 1;
     } 
-    else {  
-      return prices[ticker + '/USDT'].close;
-    }
+    return prices[ticker + '/USDT'].close;
   }
 
   calculateBalances (exchange, prices) {
@@ -59,15 +57,14 @@ class Exchange extends React.Component {
   async getExchangesBalances () {
     const {exchanges} = this.props;
     let totalAssets = 0;
+    const prices = await this.getPrices()
     for (const ex in exchanges) {
-      const prices = await this.getPrices(exchanges[ex].exchangeName)
-      const exchange = this.calculateBalances(exchanges[ex], prices);
+      const exchangePrices = prices[exchanges[ex].exchangeName]
+      const exchange = this.calculateBalances(exchanges[ex], exchangePrices);
       totalAssets += exchange.totalBalances;
     }
-    console.log(exchanges,totalAssets)
     this.props.getTotalAssets(totalAssets)
     this.setState({exchanges: exchanges})
-
   }
 
 

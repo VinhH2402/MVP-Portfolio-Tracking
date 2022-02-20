@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const db = require('../db');
 const filterBalance = require('./filterBalance');
 
-
 app.use(express.static(path.join(__dirname, '/../dist')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -44,6 +43,25 @@ const getAccountsBalance = async (accounts) => {
   return responseData
 }
 
+const pricesCache = {};
+
+async function  getPrices() {
+  const exchanges = ['binance', 'coinbasepro', 'kucoin', 'binanceus', 'gateio']
+  const exch = exchanges[0]
+  for(ex in exchanges) {
+    const exchangeName = exchanges[ex]
+    const exchangeApi = new ccxt[exchangeName];
+    exchangeApi.fetchTickers()
+    .then(result => pricesCache[exchangeName] = result)
+    .catch(error => console.log(error))
+  }
+  console.log('prices updated')
+}
+
+getPrices();
+setInterval(() => getPrices(), 30000)
+
+
 app.get('/fetchaccounts', async (req, res) => {
   const accounts = await getAccounts();
   const accountsBalance = await getAccountsBalance(accounts);
@@ -52,10 +70,7 @@ app.get('/fetchaccounts', async (req, res) => {
 
 app.get('/fetchprices', (req, res) => {
   const exchangeName = req.query.exchangeName;
-  const exchangeApi = new ccxt[exchangeName];
-  exchangeApi.fetchTickers()
-    .then(result => res.json(result))
-    .catch(error => res.json(error))
+  res.json(pricesCache)
 })
 
 app.post('/addAccount', (req, res) => {
@@ -76,7 +91,7 @@ app.post('/delete', (req, res) => {
 app.put('/remove', (req, res) => {
   db.Keys.deleteOne({ _id: req.body.id })
     .then((result) => {
-      console.log(req.body.exchange + ' REMOVE', result);
+      console.log('REMOVE', result)
       res.send(result);
     })
 })

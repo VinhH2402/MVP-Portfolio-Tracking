@@ -95,7 +95,6 @@ class App extends React.Component {
    }
 
    render() {
-      console.log('render app')
       const { addAccount, exchanges, totalAssets } = this.state;
       return addAccount === false ?
          (<div>
