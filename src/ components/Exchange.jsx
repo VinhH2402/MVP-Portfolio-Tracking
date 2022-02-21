@@ -35,7 +35,7 @@ class Exchange extends React.Component {
     if (ticker === 'USD') {
       return 1;
     } 
-    return prices[ticker + '/USDT'].close;
+    return prices[ticker + '/USDT'];
   }
 
   calculateBalances (exchange, prices) {

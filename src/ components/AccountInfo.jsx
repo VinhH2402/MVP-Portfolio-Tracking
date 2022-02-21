@@ -3,6 +3,7 @@ import React from "react";
 const SelectExchange = (props) => {
   const options = ['Binance', 'BinanceUS', 'CoinbasePro', 'Kucoin', 'Gate.io'];
   const {togglePassphrase, handleInput, exchange, apiKey, secretKey, passphrase, sandbox} = props
+  console.log(togglePassphrase)
   return (
     <><div className="select-exchange-option">
       <select id='exchange' value={exchange} onChange={handleInput}>
@@ -24,7 +25,7 @@ const SelectExchange = (props) => {
       {togglePassphrase &&
         <div>
           <input type="password" id='passphrase'
-            placeholder='passphrase'
+            placeholder='pass phrase'
             value={passphrase}
             onChange={handleInput} />
         </div>

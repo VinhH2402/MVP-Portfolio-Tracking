@@ -77,6 +77,7 @@ class AddAccount extends React.Component {
             apiKey={apiKey}
             secretKey={secretKey}
             passphrase={passphrase}
+            togglePassphrase={togglePassphrase}
             sandbox={sandbox}
           />
           {errorText && (<div className="error-text">{errorText}</div>)}
