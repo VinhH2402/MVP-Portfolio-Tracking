@@ -19,7 +19,6 @@ async function fetchPrices() {
     exchangeApi.fetchTickers()
       .then(result => {
         const prices = filterPrices(result);
-        console.log(prices)
         pricesCache[exchangeName] = prices;
       })
       .catch(error => console.log(error))
