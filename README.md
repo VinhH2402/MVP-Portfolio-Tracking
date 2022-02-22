@@ -1,6 +1,6 @@
 # Portfolio Tracking
 The problem is I have invested cryptocurrency in multiple exchanges, every time I want to check my investments I have to check on each particular exchange.
-Portfolio Tracking is an web app able to tracking all investments in one page.
+Portfolio Tracking is an web app use for tracking all investments in one page.
 
 ## Setup 
 Clone repo
