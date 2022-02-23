@@ -1,6 +1,6 @@
 auth.js
-./node_modules
 config.js
 config.json
 autoInput.js
 .env
+node_modules
