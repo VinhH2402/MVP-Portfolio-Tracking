@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const ccxt = require('ccxt')
+const ccxt = require('ccxt');
+require('dotenv').config();
+const port = process.env.DB_PORT || 27017;
 
 main().catch(err => console.log(err));
 async function main(){

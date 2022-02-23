@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
 const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('../db');
+require('dotenv').config()
+const port = process.env.PORT || 3000;
 
 const {pricesCache, getAccountsBalance, getAccounts} = require('./function')
 
