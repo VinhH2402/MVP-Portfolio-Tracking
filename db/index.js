@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const ccxt = require('ccxt')
+require('dotenv').config();
+const port = process.env.DB_PORT || 27017
 
 main().catch(err => console.log(err));
 async function main(){
-  mongoose.connect('mongodb://localhost:27017/accounts', { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connect(`mongodb://localhost:${port}/accounts`, 
+  { useNewUrlParser: true, useUnifiedTopology: true });
 }
 
 

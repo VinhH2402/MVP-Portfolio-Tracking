@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./server/index.js",
-    "react-build": "webpack --mode production --watch",
-    "bundle": "webpack"
+    "build": "webpack --mode production --watch"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +13,7 @@
   "dependencies": {
     "axios": "^0.22.0",
     "ccxt": "^1.71.81",
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.2.0",
     "react-dom": "^17.0.2"
