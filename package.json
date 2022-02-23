@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./server/index.js",
-    "react-build": "webpack --mode development --watch",
-    "bundle": "webpack --mode production --watch"
+    "start": "node ./server/index.js",
+    "react-build": "webpack --mode production --watch",
+    "bundle": "webpack"
   },
   "keywords": [],
   "author": "",
