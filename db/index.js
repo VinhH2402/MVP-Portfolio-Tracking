@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-<<<<<<< HEAD
 const ccxt = require('ccxt');
 require('dotenv').config();
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/accounts';
