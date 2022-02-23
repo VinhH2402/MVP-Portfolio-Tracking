@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./server/index.js",
-    "react-build": "webpack --mode production --watch",
-    "bundle": "webpack"
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
