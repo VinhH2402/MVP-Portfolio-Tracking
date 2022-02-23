@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
+<<<<<<< HEAD
 const ccxt = require('ccxt');
 require('dotenv').config();
-const port = process.env.DB_PORT || 27017;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/accounts';
 
 main().catch(err => console.log(err));
-async function main(){
-  mongoose.connect(
-    process.env.MONGODB_URI || 'mongodb://localhost:27017/accounts', 
-    { useNewUrlParser: true, useUnifiedTopology: true });
+async function main() {
+  mongoose.connect(MONGODB_URI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      family: 4
+    });
 }
 
 
