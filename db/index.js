@@ -9,7 +9,6 @@ async function main() {
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
       family: 4
     });
 }

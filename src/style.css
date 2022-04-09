@@ -3,11 +3,11 @@ h1 {
 }
 
 .add_exchange,
-.remove-account {
+.remove_account {
   text-align: right;
 }
 
-.remove-account button {
+.remove_account button {
   height: 2em;
   width: 6em;
   display:inline-block;
@@ -93,13 +93,14 @@ button:hover{
 }
 
 #exchange_name{
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
+ display: grid;
+ grid-template-columns: repeat(3, 26vw);
+ margin: 1vw 10vw 1vw 10vw;
 }
 
 .exchange_total {
   text-align: right;
+  font-size: 20px;
 }
 
 .exchange_total, 

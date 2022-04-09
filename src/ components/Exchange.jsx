@@ -17,7 +17,7 @@ class Exchange extends React.Component {
   }
 
   componentDidUpdate() {
-    if(this.props.exchanges.length !== this.state.exchanges.length) {
+    if (this.props.exchanges.length !== this.state.exchanges.length) {
       this.getExchangesBalances();
     }
   }
@@ -27,26 +27,26 @@ class Exchange extends React.Component {
       .then(prices => prices.data)
       .catch(error => null)
   }
-  
+
   findPrice(ticker, prices) {
     if (ticker === 'USDT') {
       return 1;
-    } 
+    }
     if (ticker === 'USD') {
       return 1;
-    } 
+    }
     return prices[ticker + '/USDT'];
   }
 
-  calculateBalances (exchange, prices) {
-     let totalBalances = 0;
-     let balances = exchange.balances;
-     balances.forEach(item => {
+  calculateBalances(exchange, prices) {
+    let totalBalances = 0;
+    let balances = exchange.balances;
+    balances.forEach(item => {
       const price = this.findPrice(item.currency, prices);
       const total = Number(price) * Number(item.balance);
       item.price = price;
       item.totalValue = new Intl.NumberFormat('en-US',
-      { style: 'currency', currency: 'USD' }).format(total);
+        { style: 'currency', currency: 'USD' }).format(total);
       totalBalances += total;
     })
     exchange.totalBalances = totalBalances;
@@ -54,8 +54,8 @@ class Exchange extends React.Component {
   }
 
 
-  async getExchangesBalances () {
-    const {exchanges} = this.props;
+  async getExchangesBalances() {
+    const { exchanges } = this.props;
     let totalAssets = 0;
     const prices = await this.getPrices()
     for (const ex in exchanges) {
@@ -64,33 +64,27 @@ class Exchange extends React.Component {
       totalAssets += exchange.totalBalances;
     }
     this.props.getTotalAssets(totalAssets)
-    this.setState({exchanges: exchanges})
+    this.setState({ exchanges: exchanges })
   }
 
 
   render() {
-    const {removeAccount } = this.props;
-    const {exchanges} = this.state;
+    const { removeAccount } = this.props;
+    const { exchanges } = this.state;
     return exchanges.map(exchange => {
       const exchangeName = exchange.exchangeName;
       const currencyTotal = new Intl.NumberFormat('en-US',
         { style: 'currency', currency: 'USD' }).format(exchange.totalBalances);
       return (
         <div key={exchange.id}>
-          <table id='exchange_name'>
-            <tbody>
-              <tr>
-                <td className='exchange_name'>{exchangeName.toUpperCase()}</td>
-                <td className='exchange_total'>{currencyTotal}</td>
-                <td className='remove-account'>
-                  <div>
-                    <button id={exchange.id} onClick={removeAccount}>REMOVE</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <TableHeader balances={exchange.balances}/>
+          <div id='exchange_name'>
+            <div className='exchange_name'>{exchangeName.toUpperCase()}</div>
+            <div className='exchange_total'>{currencyTotal}</div>
+            <div className='remove_account'>
+              <button id={exchange.id} onClick={removeAccount}>REMOVE</button>
+            </div>
+          </div>
+          <TableHeader balances={exchange.balances} />
         </div>
       );
     })
