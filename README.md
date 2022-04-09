@@ -7,7 +7,6 @@ Clone repo
 * npm install
 * npm run start for the server and database
 * npm run bundle for webpack
-* In browser navigate to http://localhost:3000
 
 ## Main page
 * Main page will show all crypto balances greater than 0 and calculate total value, total balances and total assets.
