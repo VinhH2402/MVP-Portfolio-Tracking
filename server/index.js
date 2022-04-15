@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const db = require('../db');
 require('dotenv').config()
 const port = process.env.PORT || 3000;
-const data = require('../data.json')
 
 const { cache, fetchAccount } = require('./function')
 
