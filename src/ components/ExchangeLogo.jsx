@@ -1,15 +1,20 @@
 import React from "react";
+import coinbaseLogo from "../logo/coinbasepro_logo.png";
+import gateioLogo from "../logo/gateio_logo.png";
+import binanceusLogo from "../logo/binanceus_logo.png";
+import kucoinLogo from "../logo/kucoin_logo.png"
+import binanceLogo from "../logo/binance_logo.png"
 
 const ExchangeLogo = (props) => {
   const logoURL = {
-    binance: 'https://i.ibb.co/vVMFdqz/Binance-Logo.png',
-    kucoin: 'https://i.ibb.co/MMQXyPc/download.png',
-    coinbasepro: 'https://i.ibb.co/1Lp5vNZ/Coinbase-Logo.png',
-    gateio: 'https://i.ibb.co/Kjy1sqz/1628073447307621687gateio-h-4.png',
-    binanceus: 'https://i.ibb.co/Jt7CGpD/binanceus7514.jpg'
+    binance: binanceLogo,
+    kucoin: kucoinLogo,
+    coinbasepro: coinbaseLogo,
+    gateio: gateioLogo,
+    binanceus: binanceusLogo
   }
   const exchange = props.exchange.toLowerCase().replace('.', '');
-  const url = logoURL[exchange];
+  const url = logoURL[exchange]
 
   return (
     <div className="exchange-logo">

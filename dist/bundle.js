@@ -366,7 +366,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\n\nvar ExchangeLogo = function ExchangeLogo(props) {\n  var logoURL = {\n    binance: 'https://i.ibb.co/vVMFdqz/Binance-Logo.png',\n    kucoin: 'https://i.ibb.co/MMQXyPc/download.png',\n    coinbasepro: 'https://i.ibb.co/1Lp5vNZ/Coinbase-Logo.png',\n    gateio: 'https://i.ibb.co/Kjy1sqz/1628073447307621687gateio-h-4.png',\n    binanceus: 'https://i.ibb.co/Jt7CGpD/binanceus7514.jpg'\n  };\n  var exchange = props.exchange.toLowerCase().replace('.', '');\n  var url = logoURL[exchange];\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"exchange-logo\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n    alt: exchange,\n    src: url\n  }));\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ExchangeLogo);\n\n//# sourceURL=webpack://mvp-portfolio/./src/_components/ExchangeLogo.jsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _logo_coinbasepro_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../logo/coinbasepro_logo.png */ \"./src/logo/coinbasepro_logo.png\");\n/* harmony import */ var _logo_gateio_logo_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../logo/gateio_logo.png */ \"./src/logo/gateio_logo.png\");\n/* harmony import */ var _logo_binanceus_logo_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../logo/binanceus_logo.png */ \"./src/logo/binanceus_logo.png\");\n/* harmony import */ var _logo_kucoin_logo_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../logo/kucoin_logo.png */ \"./src/logo/kucoin_logo.png\");\n/* harmony import */ var _logo_binance_logo_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../logo/binance_logo.png */ \"./src/logo/binance_logo.png\");\n\n\n\n\n\n\n\nvar ExchangeLogo = function ExchangeLogo(props) {\n  var logoURL = {\n    binance: _logo_binance_logo_png__WEBPACK_IMPORTED_MODULE_5__[\"default\"],\n    kucoin: _logo_kucoin_logo_png__WEBPACK_IMPORTED_MODULE_4__[\"default\"],\n    coinbasepro: _logo_coinbasepro_logo_png__WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n    gateio: _logo_gateio_logo_png__WEBPACK_IMPORTED_MODULE_2__[\"default\"],\n    binanceus: _logo_binanceus_logo_png__WEBPACK_IMPORTED_MODULE_3__[\"default\"]\n  };\n  var exchange = props.exchange.toLowerCase().replace('.', '');\n  var url = logoURL[exchange];\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"exchange-logo\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n    alt: exchange,\n    src: url\n  }));\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ExchangeLogo);\n\n//# sourceURL=webpack://mvp-portfolio/./src/_components/ExchangeLogo.jsx?");
 
 /***/ }),
 
@@ -466,6 +466,61 @@ eval("\n\n/*\n  MIT License http://www.opensource.org/licenses/mit-license.php\n
 
 "use strict";
 eval("\n\nmodule.exports = function (i) {\n  return i[1];\n};\n\n//# sourceURL=webpack://mvp-portfolio/./node_modules/css-loader/dist/runtime/noSourceMaps.js?");
+
+/***/ }),
+
+/***/ "./src/logo/binance_logo.png":
+/*!***********************************!*\
+  !*** ./src/logo/binance_logo.png ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"logo/binance_logo.png\");\n\n//# sourceURL=webpack://mvp-portfolio/./src/logo/binance_logo.png?");
+
+/***/ }),
+
+/***/ "./src/logo/binanceus_logo.png":
+/*!*************************************!*\
+  !*** ./src/logo/binanceus_logo.png ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"logo/binanceus_logo.png\");\n\n//# sourceURL=webpack://mvp-portfolio/./src/logo/binanceus_logo.png?");
+
+/***/ }),
+
+/***/ "./src/logo/coinbasepro_logo.png":
+/*!***************************************!*\
+  !*** ./src/logo/coinbasepro_logo.png ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"logo/coinbasepro_logo.png\");\n\n//# sourceURL=webpack://mvp-portfolio/./src/logo/coinbasepro_logo.png?");
+
+/***/ }),
+
+/***/ "./src/logo/gateio_logo.png":
+/*!**********************************!*\
+  !*** ./src/logo/gateio_logo.png ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"logo/gateio_logo.png\");\n\n//# sourceURL=webpack://mvp-portfolio/./src/logo/gateio_logo.png?");
+
+/***/ }),
+
+/***/ "./src/logo/kucoin_logo.png":
+/*!**********************************!*\
+  !*** ./src/logo/kucoin_logo.png ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"logo/kucoin_logo.png\");\n\n//# sourceURL=webpack://mvp-portfolio/./src/logo/kucoin_logo.png?");
 
 /***/ }),
 
@@ -731,6 +786,11 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		__webpack_require__.p = "/";
 /******/ 	})();
 /******/ 	
 /************************************************************************/
