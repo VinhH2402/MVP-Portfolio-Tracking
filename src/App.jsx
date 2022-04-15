@@ -13,7 +13,6 @@ class App extends React.Component {
       this.handleInput = this.handleInput.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.fetchAccount = this.fetchAccount.bind(this);
-      this.getTotalAssets = this.getTotalAssets.bind(this);
       this.removeAccount = this.removeAccount.bind(this);
       this.state = {
          addAccount: false,
@@ -21,26 +20,22 @@ class App extends React.Component {
          apiKey: '',
          secretKey: '',
          exchanges: [],
-         totalAssets: 0
       }
    }
 
-   getTotalAssets(total) {
-      const totalAssets = new Intl.NumberFormat('en-US',
-         { style: 'currency', currency: 'USD' }).format(total);
-      this.setState({
-         totalAssets: totalAssets
-      })
-   }
-
-   fetchAccount() {
-      axios.get('/fetchaccounts')
-         .then(res => {
-            this.setState({
-               exchanges: res.data
-            })
+   async fetchAccount() {
+      try {
+         const exchanges = await axios.get('/exchanges')
+         this.setState({
+            exchanges: exchanges.data
          })
-         .catch(error => console.log(error))
+         const newExchanges = await axios.get('/update')
+         this.setState({
+            exchanges: newExchanges.data
+         })
+      } catch (err) {
+         console.log(error);
+      }
    }
 
    removeAccount(e) {
@@ -95,18 +90,22 @@ class App extends React.Component {
    }
 
    render() {
-      const { addAccount, exchanges, totalAssets } = this.state;
-      return addAccount === false ?
+      const { addAccount, exchanges } = this.state;
+      let totalAssets = exchanges && exchanges.reduce((pre, cur) => pre + cur.exchangeTotal, 0);
+      totalAssets = new Intl.NumberFormat('en-US',
+         { style: 'currency', currency: 'USD' }).format(totalAssets);
+
+      return addAccount ?
+         (<AddAccount handleClick={this.handleClick} fetchAccount={this.fetchAccount} />)
+         :
          (<div>
-            <Header totalAssets={totalAssets} handleClick={this.handleClick} />
+            <Header totalAssets={totalAssets || 0} handleClick={this.handleClick} />
             <Exchange
-               exchanges={exchanges}
+               exchanges={exchanges || []}
                getTotalAssets={this.getTotalAssets}
                removeAccount={this.removeAccount}
             />
          </div>)
-         :
-         (<AddAccount handleClick={this.handleClick} fetchAccount={this.fetchAccount} />)
    }
 }
 

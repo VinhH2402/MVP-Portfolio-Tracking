@@ -2,15 +2,13 @@ import React from "react";
 
 function List(props) {
   return props.balances.map((ticker, index) => {
-    const { currency, price, balance, totalValue } = ticker
-    // const total = new Intl.NumberFormat('en-US',
-    //   { style: 'currency', currency: 'USD' }).format(totalValue);
+    const { symbol, price, total, totalValue } = ticker
     return (
       <tr key={index}>
-        <td className='align_left' className='number'>{index + 1}</td>
-        <td className='align_left'>{currency}</td>
-        <td>{parseFloat(balance)}</td>
-        <td>{price}</td>
+        <td className='align_left'>{index + 1}</td>
+        <td className='align_left'>{symbol}</td>
+        <td>{parseFloat(total)}</td>
+        <td>{price || 1}</td>
         <td>{totalValue}</td>
       </tr>
     )
