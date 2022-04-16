@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const db = require('../db');
 require('dotenv').config()
 const port = process.env.PORT || 3000;
+const logs = require('../logs.json');
+const data = require('../data.json');
 
-const { cache, fetchAccount } = require('./function')
+const { fetchAccount } = require('./function')
 
 app.use(express.static(path.join(__dirname, '/../dist')))
 app.use(bodyParser.json())
@@ -14,8 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 app.get('/exchanges', (req, res) => {
-  const exchanges = cache.get('exchanges')
-  res.json(exchanges)
+  res.json(data)
 })
 
 app.get('/update', async (req, res) => {
@@ -26,6 +27,10 @@ app.get('/update', async (req, res) => {
 app.get('/fetchprices', (req, res) => {
   const prices = cache.get('prices')
   res.json(prices)
+})
+
+app.get('/logs', (req, res) => {
+  res.json(logs.length)
 })
 
 app.post('/addAccount', (req, res) => {

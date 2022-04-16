@@ -1,7 +1,8 @@
 const ccxt = require('ccxt');
 const db = require('../db');
+const fs = require('fs')
+const logs = require('../logs.json')
 
-const cache = new Map();
 
 const priceFilter = (obj) => {
   return Object.keys(obj)
@@ -37,7 +38,13 @@ const balancesFilter = (total, prices) => {
 async function fetchAccount() {
   const accounts = await getAccounts();
   const exchanges = await getBalances(accounts);
-  cache.set('exchanges', exchanges)
+  const date = new Date().toLocaleString('en-US', {
+    timeZone: 'America/Los_Angeles',
+  })
+  console.log(date)
+  logs.push(date)
+  fs.writeFile('data.json', JSON.stringify(exchanges), (err) => console.log('save data success'))
+  fs.writeFile('logs.json', JSON.stringify(logs), (err) => console.log('save log success'))
   console.log('completed fetch data')
   return exchanges;
 }
@@ -83,9 +90,7 @@ async function getAccounts() {
   }
 };
 
-
 fetchAccount();
 
 
-module.exports.cache = cache;
 module.exports.fetchAccount = fetchAccount;

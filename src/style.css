@@ -144,6 +144,16 @@ th.total {
   text-align: right;
 }
 
+.loading {
+  text-align: center;
+  font-size: larger;
+}
+
+.loadingImg {
+  width: 50vw;
+  height: 10vh;
+  border-radius: 20px;
+}
 
 
 

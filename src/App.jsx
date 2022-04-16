@@ -4,6 +4,7 @@ import Exchange from './ components/Exchange';
 import AddAccount from './ components/AddAccount';
 import Header from './ components/Header';
 import './style.css';
+import Loading from './ components/Loading';
 
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
          apiKey: '',
          secretKey: '',
          exchanges: [],
+         loading: false
       }
    }
 
@@ -27,11 +29,13 @@ class App extends React.Component {
       try {
          const exchanges = await axios.get('/exchanges')
          this.setState({
-            exchanges: exchanges.data
+            exchanges: exchanges.data,
+            loading: true
          })
          const newExchanges = await axios.get('/update')
          this.setState({
-            exchanges: newExchanges.data
+            exchanges: newExchanges.data,
+            loading: false
          })
       } catch (err) {
          console.log(error);
@@ -90,7 +94,7 @@ class App extends React.Component {
    }
 
    render() {
-      const { addAccount, exchanges } = this.state;
+      const { addAccount, exchanges, loading } = this.state;
       let totalAssets = exchanges && exchanges.reduce((pre, cur) => pre + cur.exchangeTotal, 0);
       totalAssets = new Intl.NumberFormat('en-US',
          { style: 'currency', currency: 'USD' }).format(totalAssets);
@@ -99,7 +103,8 @@ class App extends React.Component {
          (<AddAccount handleClick={this.handleClick} fetchAccount={this.fetchAccount} />)
          :
          (<div>
-            <Header totalAssets={totalAssets || 0} handleClick={this.handleClick} />
+            <Header totalAssets={totalAssets || 0} handleClick={this.handleClick} />\
+            {loading && (<Loading />)}
             <Exchange
                exchanges={exchanges || []}
                getTotalAssets={this.getTotalAssets}
