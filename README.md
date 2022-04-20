@@ -5,6 +5,7 @@ Portfolio Tracking is an web app use for tracking all investments in one page.
 ## Setup 
 Clone repo
 * npm install
+* create env file store MONGODB_URI link
 * npm run start for the server and database
 * npm run bundle for webpack
 
@@ -12,8 +13,6 @@ Clone repo
 * Main page will show all crypto balances greater than 0 and calculate total value, total balances and total assets.
 * Response from exchanges API may take couple second to get account balances.
 ![alt text](https://i.ibb.co/vc5NxfL/Screen-Shot-2022-02-20-at-10-51-02-AM.jpg)
-* main page diagram
-![alt text](https://i.ibb.co/XkfMxNr/Screen-Shot-2022-02-20-at-11-10-45-AM.jpg)
 
 ## Add Account page
 ![alt text](https://i.ibb.co/j8mHJNH/Screen-Shot-2022-02-20-at-10-51-12-AM.jpg)
@@ -26,8 +25,6 @@ Clone repo
   * Have notification if that account is invalid or added
   * Return to main page if that account id valid
 
-* add account diagram
-![alt text](https://i.ibb.co/CmH0mQg/Screen-Shot-2022-02-20-at-10-59-41-AM.jpg)
 
 
 
