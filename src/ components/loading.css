@@ -1,10 +1,9 @@
 .loader{
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  text-align: center;
   display: flex;
   align-items: center;
-  height: 15vh;
+  justify-content: center;
+  height: 5vh;
 }
 
 span{

@@ -5,8 +5,8 @@ function List(props) {
     const { symbol, price, total, totalValue } = ticker
     return (
       <tr key={index}>
-        <td className='align_left'>{index + 1}</td>
-        <td className='align_left'>{symbol}</td>
+        <td className='align-left'>{index + 1}</td>
+        <td className='align-left'>{symbol}</td>
         <td>{parseFloat(total)}</td>
         <td>{price || 1}</td>
         <td>{totalValue}</td>

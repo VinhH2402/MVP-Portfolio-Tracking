@@ -21,7 +21,7 @@ class AddAccount extends React.Component {
   }
 
   handleInput(e) {
-    const id = e.target.id;
+    const id = e.target.id === 'exchange-name' ? 'exchange' : e.target.id;
     const value = id === 'sandbox' ? e.target.checked : e.target.value;
     this.setState({
       [id]: value
@@ -66,7 +66,7 @@ class AddAccount extends React.Component {
     return (
       <div id='add-account'>
         <div className="add-account-header">
-          <span className='back-button' onClick={this.props.handleClick}>{'<'}</span>
+          <div className='back-button' onClick={this.props.handleClick}>{'<'}</div>
           <h3 className="add-account-text">ADD ACCOUNT</h3>
         </div>
         <div className="input-keys">

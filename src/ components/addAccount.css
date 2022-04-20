@@ -1,15 +1,26 @@
+#add-account {
+  margin: auto;
+  max-width: 600px;
+}
+
+.input-keys {
+  margin: auto;
+  text-align: center;
+  margin-top: 5em;
+}
 
 .add-account-header {
   width: 100%;
+  margin: auto;
   height: 2em;
-  color:white;
+  color: white;
   text-align: center;
   border: 1px solid black;
-  background-color: rgb(111, 108, 108);
+  background-color: #4CAF50;
 }
 
 .add-account-text {
-  margin: 5px 0 ;
+  margin: 5px 0;
 }
 
 .back-button {
@@ -19,41 +30,39 @@
   float: left;
 }
 
-.exchange-logo img{
+.exchange-logo img {
+  margin: auto;
   width: 220px;
   height: 100px;
   border: 1px solid black;
   border-radius: 5px;
 }
 
-.select-exchange-option select{
-  width: 60%;
-  max-width: 12em;
-  height: 2.5em;
-  margin: 8px 0;
+.select-exchange-option select {
+  width: 300px;
+  height: 40px;
   background-color: rgb(222, 218, 218);
-}
-
-.input-keys{
-  margin: auto;
-  width: 100vw;
-  text-align: center;
-  margin-top: 5em;
+  margin: 6px 0;
 }
 
 .input-keys input {
-  max-width: 20em;
-  width: 100%;
-  height: 2.5em;
-  margin: 8px;
+  width: 300px;
+  height: 40px;
+  margin: 8px auto;
 }
 
-#sandbox{
-  font-size: 9px;
+.sandbox-check input{
   width: 3em;
+  border: 1px solid black;
+  margin: 10px auto;
+}
+
+.sandbox-check label{
+  font-size: 20px;
+  margin-left: 20px;
 }
 
 .error-text {
   font-size: 20px;
-  color: red
+  color: red;
 }

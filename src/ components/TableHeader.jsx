@@ -3,7 +3,7 @@ import List from "./List";
 
 function TableHeader(props) {
   return (
-    <table id="exchange_table">
+    <table id="exchange-table">
       <tbody>
         <tr id="row0">
           <th className='number'>#</th>

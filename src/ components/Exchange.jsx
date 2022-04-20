@@ -10,10 +10,10 @@ const Exchange = (props) => {
       { style: 'currency', currency: 'USD' }).format(exchange.exchangeTotal);
     return (
       <div key={exchange.id}>
-        <div id='exchange_name'>
-          <div className='exchange_name'>{exchangeName}</div>
-          <div className='exchange_total'>{exchangeTotal}</div>
-          <div className='remove_account'>
+        <div id='exchange'>
+          <div className='exchange-name'>{exchangeName}</div>
+          <div className='exchange-total'>{exchangeTotal}</div>
+          <div className='remove-account'>
             <button id={exchange.id} onClick={removeAccount}>REMOVE</button>
           </div>
         </div>

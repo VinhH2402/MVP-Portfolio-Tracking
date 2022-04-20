@@ -102,8 +102,8 @@ class App extends React.Component {
       return addAccount ?
          (<AddAccount handleClick={this.handleClick} fetchAccount={this.fetchAccount} />)
          :
-         (<div>
-            <Header totalAssets={totalAssets || 0} handleClick={this.handleClick} />\
+         (<div className='main'>
+            <Header totalAssets={totalAssets || 0} handleClick={this.handleClick} />
             {loading && (<Loading />)}
             <Exchange
                exchanges={exchanges || []}
