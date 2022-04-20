@@ -30,7 +30,7 @@ app.get('/fetchprices', (req, res) => {
 })
 
 app.get('/logs', (req, res) => {
-  res.json(logs.length)
+  res.json(logs)
 })
 
 app.post('/addAccount', (req, res) => {
